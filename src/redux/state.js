@@ -151,7 +151,6 @@ function sendMessage(msg) {
 }
 function update() {
 	rerender(state, updateInput, createNewPost, showDialog, sendMessage);
-
 }
 
 export function work() {
