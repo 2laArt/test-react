@@ -1,0 +1,5 @@
+@import url("./color.css");
+
+:root {
+	--header-bg-red: #e44d3a;
+}

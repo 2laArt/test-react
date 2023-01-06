@@ -1,0 +1,26 @@
+import SearchBar from "./addModules/SearchBar";
+import NavBar from "./addModules/NavBar";
+import "../../assets/styles/addStyles/Header.css";
+import { NavLink } from "react-router-dom";
+const Header = () => {
+  return (
+    <header className="header">
+      <div className="container">
+        <div className="header_data">
+          <div className="logo">
+            <NavLink
+              to="/"
+              className={(c) => (c.isActive ? "active_custom" : "")}
+            >
+              LOGO
+            </NavLink>
+          </div>
+          <SearchBar />
+          <NavBar />
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default Header;

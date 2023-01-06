@@ -1,0 +1,51 @@
+.dialogs {
+	display: flex;
+	justify-content: center;
+	padding: 2rem 1rem;
+}
+
+.dialog_box {
+	margin-bottom: 1rem;
+
+}
+
+.dialog_box:last-child {
+	margin-bottom: 0;
+}
+
+.dialog {
+	max-width: 13rem;
+	display: flex;
+	align-items: center;
+	text-align: left;
+	cursor: pointer;
+	padding: .6rem;
+}
+
+
+.messages {
+	padding: 0 2rem;
+	width: 100%;
+	max-width: 50rem;
+
+}
+
+.message_box {
+	/* padding: 1rem; */
+}
+
+.message {
+	overflow-wrap: anywhere;
+	padding: 1rem;
+	display: inline-block;
+	margin-bottom: 1rem;
+	background: rgba(0, 0, 0, .3);
+	box-shadow: 0 0 .5rem .1rem rgba(0, 0, 0, .5);
+	border-radius: .5rem;
+}
+
+.active_dialogs {
+	display: block;
+	background: rgba(0, 0, 0, .2);
+	border-radius: 10rem;
+}

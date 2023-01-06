@@ -1,0 +1,20 @@
+.header {
+	width: 100%;
+	background-color: #e44d3a;
+}
+
+.header_data {
+	height: 6rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.nav_bar a {
+	margin-right: 1rem;
+
+}
+
+.active_custom {
+	color: gold;
+}
