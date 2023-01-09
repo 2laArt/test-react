@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-export const CreateMessage = ({ sendMessage }) => {
+export const CreateMessage = ({ dispatch }) => {
   const [value, setValue] = useState("");
   const newValue = (event) => setValue(() => event.target.value);
   const click = (event) => {
     event.preventDefault();
-    sendMessage(value);
+    dispatch({ type: "SEND-MESSAGE", param: value });
     setValue(() => "");
   };
   return (

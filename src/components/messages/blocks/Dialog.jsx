@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
-export const Dialog = ({ dialog, showDialog }) => {
+export const Dialog = ({ dialog, dispatch }) => {
   const path = "/dialogs/";
   const click = (event) => {
     event.preventDefault();
-    showDialog(dialog.id);
+    dispatch({ type: "SHOW-DIALOG", param: dialog.id });
   };
   return (
     <div className="dialog_box" onClick={click}>

@@ -1,10 +1,10 @@
 import { Dialog } from "./Dialog";
 
-export const SideBarDl = ({ dialogs, showDialog }) => {
+export const SideBarDl = ({ dialogs, dispatch }) => {
   return (
     <div className="sideBarDl">
       {dialogs.map((el) => {
-        return <Dialog dialog={el} showDialog={showDialog} key={el.id} />;
+        return <Dialog dialog={el} dispatch={dispatch} key={el.id} />;
       })}
     </div>
   );

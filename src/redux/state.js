@@ -1,7 +1,5 @@
-
-// import { rerender } from "../rerender";
-let rerenderEntireTree = () => { };
-
+//
+//
 const state = {
 	messages: [
 		[
@@ -117,16 +115,16 @@ const state = {
 }
 const store = {
 	state,
-	updateInput(value) {
+	_updateInput(value) {
 		this.state.newPostText = value;
-		rerenderEntireTree(store)
+		this._rerenderEntireTree(store)
 	},
-	showDialog(index) {
+	_showDialog(index) {
 		this.state.index = index - 1
 		this.state.currentDialog = this.state.index;
-		rerenderEntireTree(store)
+		this._rerenderEntireTree(store)
 	},
-	createNewPost() {
+	_createNewPost() {
 		const content = this.state.newPostText.split(/\n/g);
 		const title = content[0];
 		const text = content.slice(1).join(/\n/g);
@@ -139,9 +137,9 @@ const store = {
 		};
 		state.postData.unshift(post);
 		state.newPostText = '';
-		rerenderEntireTree(store)
+		this._rerenderEntireTree(store)
 	},
-	sendMessage(msg) {
+	_sendMessage(msg) {
 		if (
 			!(
 				this.state.index >= 0 &&
@@ -158,49 +156,32 @@ const store = {
 				text: msg
 			}
 		)
-		rerenderEntireTree(store)
-	}
+		this._rerenderEntireTree(store)
+	},
+	dispatch(action) {
+		switch (action.type) {
+			case "UPDATE-INPUT":
+				this._updateInput(action.param);
+				break;
+			case "SHOW-DIALOG":
+				this._showDialog(action.param);
+				break;
+			case "CREATE-NEW-POST":
+				this._createNewPost();
+				break;
+			case "SEND-MESSAGE":
+				this._sendMessage(action.param);
+				break;
+
+			default:
+				alert('type isn`t valid')
+		}
+	},
+	_rerenderEntireTree() { },
+	update(observer) {
+		store._rerenderEntireTree = observer;
+		store._rerenderEntireTree(store);
+	},
 }
 
-export function update(observer) {
-	rerenderEntireTree = observer;
-	rerenderEntireTree(store)
-}
-
-
-
-// function updateInput(newValue) {
-// 	state.newPostText = newValue;
-// 	update()
-// }
-// function showDialog(index) {
-// 	state.index = index - 1
-// 	state.currentDialog = state.index;
-// 	update()
-// }
-
-// function createNewPost() {
-// 	const content = state.newPostText.split(/\n/g);
-// 	const title = content[0];
-// 	const text = content.slice(1).join(/\n/g);
-// 	const post = {
-// 		id: state.postData.length + 1,
-// 		title: title,
-// 		text: text,
-// 		img: "https://avatars.mds.yandex.net/i?id=16140a7d34dfbc85644112803e4463ac_sr-7012335-images-thumbs&n=13",
-// 		likes: 0,
-// 	};
-// 	state.postData.unshift(post);
-// 	state.newPostText = '';
-// 	update()
-// };
-// function sendMessage(msg) {
-// 	const index = state.index
-// 	state.messages[index].push(
-// 		{
-// 			id: 1,
-// 			text: msg
-// 		}
-// 	)
-// 	update()
-// }
+export const update = store.update.bind(store);

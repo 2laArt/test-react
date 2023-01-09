@@ -1,10 +1,10 @@
-const CreatePost = ({ newPostText, updateInput, createNewPost }) => {
+const CreatePost = ({ newPostText, dispatch }) => {
   const handlerChange = (event) => {
-    updateInput(event.target.value);
+    dispatch({ type: "UPDATE-INPUT", param: event.target.value });
   };
   const sendPost = (event) => {
     event.preventDefault();
-    createNewPost();
+    dispatch({ type: "CREATE-NEW-POST" });
   };
   return (
     <section className="create_ports profile_section">

@@ -24,16 +24,15 @@ function App({ store }) {
                 postData={store.state.postData}
                 userProfile={store.state.userProfile}
                 newPostText={store.state.newPostText}
-                updateInput={store.updateInput.bind(store)}
-                createNewPost={store.createNewPost.bind(store)}
+                dispatch={store.dispatch.bind(store)}
               />
             } />
             <Route path='/dialogs/*' element={
               <Dialogs
                 currentDialog={store.state.currentDialog}
-                showDialog={store.showDialog.bind(store)}
-                sendMessage={store.sendMessage.bind(store)}
-                dialogs={store.state.dialogs} />
+                dialogs={store.state.dialogs}
+                dispatch={store.dispatch.bind(store)}
+              />
             } />
             <Route path='/news' element={
               <News />
