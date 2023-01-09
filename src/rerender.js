@@ -7,11 +7,11 @@ import App from './components/App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-export const rerender = (state, updateInput, createNewPost, showDialog, sendMessage) => {
+export const rerender = (store) => {
 	console.log('re-render')
 	root.render(
 		<React.StrictMode>
-			<App state={state} updateInput={updateInput} createNewPost={createNewPost} showDialog={showDialog} sendMessage={sendMessage} />
+			<App store={store} />
 		</React.StrictMode>
 	);
 }

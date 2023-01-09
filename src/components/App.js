@@ -9,7 +9,7 @@ import { News } from '../components/news/News';
 import { Dialogs } from "../components/messages/Dialogs";
 
 
-function App({ state, updateInput, createNewPost, showDialog, sendMessage }) {
+function App({ store }) {
   return (
     <div className="App">
       <BrowserRouter>
@@ -21,19 +21,19 @@ function App({ state, updateInput, createNewPost, showDialog, sendMessage }) {
             } />
             <Route path='/profile' element={
               <Profile
-                postData={state.postData}
-                userProfile={state.userProfile}
-                newPostText={state.newPostText}
-                updateInput={updateInput}
-                createNewPost={createNewPost}
+                postData={store.state.postData}
+                userProfile={store.state.userProfile}
+                newPostText={store.state.newPostText}
+                updateInput={store.updateInput.bind(store)}
+                createNewPost={store.createNewPost.bind(store)}
               />
             } />
             <Route path='/dialogs/*' element={
               <Dialogs
-                currentDialog={state.currentDialog}
-                showDialog={showDialog}
-                sendMessage={sendMessage}
-                dialogs={state.dialogs} />
+                currentDialog={store.state.currentDialog}
+                showDialog={store.showDialog.bind(store)}
+                sendMessage={store.sendMessage.bind(store)}
+                dialogs={store.state.dialogs} />
             } />
             <Route path='/news' element={
               <News />

@@ -1,6 +1,8 @@
-import { rerender } from "../rerender";
 
-export const state = {
+// import { rerender } from "../rerender";
+let rerenderEntireTree = () => { };
+
+const state = {
 	messages: [
 		[
 			{
@@ -109,51 +111,96 @@ export const state = {
 	},
 	newPostText: '',
 	dialog: [],
-	index: 0,
+	index: undefined,
 	get currentDialog() { return this.dialog },
 	set currentDialog(i) { this.dialog = this.messages[i] },
 }
-state.currentDialog = 0;
-function updateInput(newValue) {
-	state.newPostText = newValue;
-	update()
-}
-function showDialog(index) {
-	state.index = index - 1
-	state.currentDialog = state.index;
-	update()
-}
-
-function createNewPost() {
-	const content = state.newPostText.split(/\n/g);
-	const title = content[0];
-	const text = content.slice(1).join(/\n/g);
-	const post = {
-		id: state.postData.length + 1,
-		title: title,
-		text: text,
-		img: "https://avatars.mds.yandex.net/i?id=16140a7d34dfbc85644112803e4463ac_sr-7012335-images-thumbs&n=13",
-		likes: 0,
-	};
-	state.postData.unshift(post);
-	state.newPostText = '';
-	update()
-};
-function sendMessage(msg) {
-	const index = state.index
-	state.messages[index].push(
-		{
-			id: 1,
-			text: msg
+const store = {
+	state,
+	updateInput(value) {
+		this.state.newPostText = value;
+		rerenderEntireTree(store)
+	},
+	showDialog(index) {
+		this.state.index = index - 1
+		this.state.currentDialog = this.state.index;
+		rerenderEntireTree(store)
+	},
+	createNewPost() {
+		const content = this.state.newPostText.split(/\n/g);
+		const title = content[0];
+		const text = content.slice(1).join(/\n/g);
+		const post = {
+			id: this.state.postData.length + 1,
+			title: title,
+			text: text,
+			img: "https://avatars.mds.yandex.net/i?id=16140a7d34dfbc85644112803e4463ac_sr-7012335-images-thumbs&n=13",
+			likes: 0,
+		};
+		state.postData.unshift(post);
+		state.newPostText = '';
+		rerenderEntireTree(store)
+	},
+	sendMessage(msg) {
+		if (
+			!(
+				this.state.index >= 0 &&
+				this.state.index <= this.state.messages.length - 1
+			)
+		) {
+			alert('dialog not selected');
+			return
 		}
-	)
-	update()
+		const index = this.state.index
+		this.state.messages[index].push(
+			{
+				id: 1,
+				text: msg
+			}
+		)
+		rerenderEntireTree(store)
+	}
 }
-function update() {
-	rerender(state, updateInput, createNewPost, showDialog, sendMessage);
 
+export function update(observer) {
+	rerenderEntireTree = observer;
+	rerenderEntireTree(store)
 }
 
-export function work() {
-	update()
-}
+
+
+// function updateInput(newValue) {
+// 	state.newPostText = newValue;
+// 	update()
+// }
+// function showDialog(index) {
+// 	state.index = index - 1
+// 	state.currentDialog = state.index;
+// 	update()
+// }
+
+// function createNewPost() {
+// 	const content = state.newPostText.split(/\n/g);
+// 	const title = content[0];
+// 	const text = content.slice(1).join(/\n/g);
+// 	const post = {
+// 		id: state.postData.length + 1,
+// 		title: title,
+// 		text: text,
+// 		img: "https://avatars.mds.yandex.net/i?id=16140a7d34dfbc85644112803e4463ac_sr-7012335-images-thumbs&n=13",
+// 		likes: 0,
+// 	};
+// 	state.postData.unshift(post);
+// 	state.newPostText = '';
+// 	update()
+// };
+// function sendMessage(msg) {
+// 	const index = state.index
+// 	state.messages[index].push(
+// 		{
+// 			id: 1,
+// 			text: msg
+// 		}
+// 	)
+// 	update()
+// }

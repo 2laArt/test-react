@@ -11,9 +11,11 @@ export const Dialogs = ({
   return (
     <div className="dialogs">
       <SideBarDl dialogs={dialogs} showDialog={showDialog} />
-      <Messages currentDialog={currentDialog}>
-        <CreateMessage sendMessage={sendMessage} />
-      </Messages>
+      <div style={{ display: currentDialog.length === 0 ? "none" : "block" }}>
+        <Messages currentDialog={currentDialog}>
+          <CreateMessage sendMessage={sendMessage} />
+        </Messages>
+      </div>
     </div>
   );
 };
