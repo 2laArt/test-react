@@ -10,6 +10,11 @@
 	border-radius: .5rem;
 }
 
+.profile_intro {
+	height: 50vmin;
+	overflow: hidden;
+}
+
 .profile_info {
 	display: flex;
 	justify-content: left;

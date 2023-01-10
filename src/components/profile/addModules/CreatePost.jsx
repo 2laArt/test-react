@@ -1,10 +1,14 @@
+import {
+  createNewPostActionCreator,
+  updateInputPostActionCreator,
+} from "../../../redux/reducers/profileReducer";
 const CreatePost = ({ newPostText, dispatch }) => {
   const handlerChange = (event) => {
-    dispatch({ type: "UPDATE-INPUT", param: event.target.value });
+    dispatch(updateInputPostActionCreator(event.target.value));
   };
   const sendPost = (event) => {
     event.preventDefault();
-    dispatch({ type: "CREATE-NEW-POST" });
+    dispatch(createNewPostActionCreator());
   };
   return (
     <section className="create_ports profile_section">

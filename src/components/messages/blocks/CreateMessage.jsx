@@ -1,11 +1,12 @@
 import { useState } from "react";
-
+import { sendMessageActionCreator } from "../../../redux/reducers/dialogsReducer";
 export const CreateMessage = ({ dispatch }) => {
   const [value, setValue] = useState("");
   const newValue = (event) => setValue(() => event.target.value);
+
   const click = (event) => {
     event.preventDefault();
-    dispatch({ type: "SEND-MESSAGE", param: value });
+    dispatch(sendMessageActionCreator(value));
     setValue(() => "");
   };
   return (

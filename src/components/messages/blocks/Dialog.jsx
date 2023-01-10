@@ -1,9 +1,10 @@
 import { NavLink } from "react-router-dom";
+import { showDialogActionCreator } from "../../../redux/reducers/dialogsReducer";
 export const Dialog = ({ dialog, dispatch }) => {
   const path = "/dialogs/";
   const click = (event) => {
     event.preventDefault();
-    dispatch({ type: "SHOW-DIALOG", param: dialog.id });
+    dispatch(showDialogActionCreator(dialog.id));
   };
   return (
     <div className="dialog_box" onClick={click}>

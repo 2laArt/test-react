@@ -2,8 +2,6 @@ import '../assets/styles/App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './header/Header';
 
-// import { router } from '../router/router'
-
 import Profile from '../components/profile/Profile';
 import { News } from '../components/news/News';
 import { Dialogs } from "../components/messages/Dialogs";
@@ -21,16 +19,15 @@ function App({ store }) {
             } />
             <Route path='/profile' element={
               <Profile
-                postData={store.state.postData}
                 userProfile={store.state.userProfile}
-                newPostText={store.state.newPostText}
+                postData={store.state.postData}
                 dispatch={store.dispatch.bind(store)}
               />
             } />
             <Route path='/dialogs/*' element={
               <Dialogs
-                currentDialog={store.state.currentDialog}
-                dialogs={store.state.dialogs}
+                getSelectedDialog={store.state.dialogsData.getSelectedDialog.bind(store.state.dialogsData)}
+                dialogs={store.state.dialogsData.dialogs}
                 dispatch={store.dispatch.bind(store)}
               />
             } />
