@@ -1,5 +1,6 @@
-import { profileReducer } from "./reducers/profileReducer";
+import { postsReducer } from "./reducers/postsReducer";
 import { dialogsReducer } from "./reducers/dialogsReducer";
+import { userProfileReducer } from "./reducers/userProfileReducer";
 
 const state = {
 	dialogsData: {
@@ -119,18 +120,20 @@ const state = {
 	},
 
 }
-const store = {
+export const store = {
 	state,
+	getState() {
+		return this.state
+	},
 	dispatch(action) {
 		this.state.dialogsData = dialogsReducer(this.state.dialogsData, action)
-		this.state.postData = profileReducer(this.state.postData, action);
-		this._rerenderEntireTree(this);
+		this.state.postData = postsReducer(this.state.postData, action);
+		this.state.userProfile = userProfileReducer(this.state.userProfile, action)
+		this._callSubscriber();
 	},
-	_rerenderEntireTree() { },
-	update(observer) {
-		store._rerenderEntireTree = observer;
-		store._rerenderEntireTree(store);
+	_callSubscriber() { },
+	subscriber(observer) {
+		this._callSubscriber = observer;
+		this._callSubscriber();
 	},
 }
-
-export const update = store.update.bind(store);

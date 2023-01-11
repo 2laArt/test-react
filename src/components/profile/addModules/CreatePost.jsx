@@ -1,7 +1,7 @@
 import {
   createNewPostActionCreator,
   updateInputPostActionCreator,
-} from "../../../redux/reducers/profileReducer";
+} from "../../../redux/reducers/postsReducer";
 const CreatePost = ({ newPostText, dispatch }) => {
   const handlerChange = (event) => {
     dispatch(updateInputPostActionCreator(event.target.value));

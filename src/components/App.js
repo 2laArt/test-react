@@ -7,7 +7,7 @@ import { News } from '../components/news/News';
 import { Dialogs } from "../components/messages/Dialogs";
 
 
-function App({ store }) {
+function App({ state, dispatch }) {
   return (
     <div className="App">
       <BrowserRouter>
@@ -19,16 +19,18 @@ function App({ store }) {
             } />
             <Route path='/profile' element={
               <Profile
-                userProfile={store.state.userProfile}
-                postData={store.state.postData}
-                dispatch={store.dispatch.bind(store)}
+                userProfile={state.userProfile}
+                postData={state.postData}
+                dispatch={dispatch}
               />
             } />
             <Route path='/dialogs/*' element={
               <Dialogs
-                getSelectedDialog={store.state.dialogsData.getSelectedDialog.bind(store.state.dialogsData)}
-                dialogs={store.state.dialogsData.dialogs}
-                dispatch={store.dispatch.bind(store)}
+                getSelectedDialog={
+                  state.dialogsData.getSelectedDialog.bind(state.dialogsData)
+                }
+                dialogs={state.dialogsData.dialogs}
+                dispatch={dispatch}
               />
             } />
             <Route path='/news' element={
