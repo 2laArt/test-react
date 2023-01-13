@@ -1,13 +1,12 @@
 import { NavLink } from "react-router-dom";
-import { showDialogActionCreator } from "../../../redux/reducers/dialogsReducer";
-export const Dialog = ({ dialog, dispatch }) => {
+export const Dialog = ({ dialog, chooseDialog }) => {
   const path = "/dialogs/";
-  const click = (event) => {
+  const onClickDialog = (event) => {
     event.preventDefault();
-    dispatch(showDialogActionCreator(dialog.id));
+    chooseDialog(dialog.id);
   };
   return (
-    <div className="dialog_box" onClick={click}>
+    <div className="dialog_box" onClick={onClickDialog}>
       <NavLink
         to={`${path}${dialog.id}`}
         className={(c) => (c.isActive ? "active_dialogs" : "")}

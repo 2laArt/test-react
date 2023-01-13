@@ -2,17 +2,28 @@ import "../../assets/styles/addStyles/Dialogs.css";
 import { SideBarDl } from "./blocks/SideBarDl";
 import { Messages } from "./blocks/Messages";
 import { CreateMessage } from "./blocks/CreateMessage";
-export const Dialogs = ({ dialogs, getSelectedDialog, dispatch }) => {
+export const Dialogs = ({
+  dialogs,
+  selectedDialog,
+  messageValue,
+  chooseDialog,
+  chooseMessageValue,
+  sendMessage,
+}) => {
   return (
     <div className="dialogs">
-      <SideBarDl dialogs={dialogs} dispatch={dispatch} />
+      <SideBarDl dialogs={dialogs} chooseDialog={chooseDialog} />
       <div
         style={{
-          display: getSelectedDialog().length === 0 ? "none" : "block",
+          display: selectedDialog.length === 0 ? "none" : "block",
         }}
       >
-        <Messages getSelectedDialog={getSelectedDialog}>
-          <CreateMessage dispatch={dispatch} />
+        <Messages selectedDialog={selectedDialog}>
+          <CreateMessage
+            messageValue={messageValue}
+            chooseMessageValue={chooseMessageValue}
+            sendMessage={sendMessage}
+          />
         </Messages>
       </div>
     </div>

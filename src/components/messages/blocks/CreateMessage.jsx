@@ -1,22 +1,20 @@
-import { useState } from "react";
-import { sendMessageActionCreator } from "../../../redux/reducers/dialogsReducer";
-export const CreateMessage = ({ dispatch }) => {
-  const [value, setValue] = useState("");
-  const newValue = (event) => setValue(() => event.target.value);
-
-  const click = (event) => {
+export const CreateMessage = ({
+  messageValue,
+  chooseMessageValue,
+  sendMessage,
+}) => {
+  const onSendMessage = (event) => {
     event.preventDefault();
-    dispatch(sendMessageActionCreator(value));
-    setValue(() => "");
+    sendMessage();
   };
   return (
     <form>
       <textarea
         placeholder="write message"
-        value={value}
-        onChange={newValue}
+        value={messageValue}
+        onChange={chooseMessageValue}
       ></textarea>
-      <button className="button" onClick={click}>
+      <button className="button" onClick={onSendMessage}>
         Create
       </button>
     </form>

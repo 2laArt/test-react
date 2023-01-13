@@ -1,14 +1,7 @@
-import {
-  createNewPostActionCreator,
-  updateInputPostActionCreator,
-} from "../../../redux/reducers/postsReducer";
-const CreatePost = ({ newPostText, dispatch }) => {
-  const handlerChange = (event) => {
-    dispatch(updateInputPostActionCreator(event.target.value));
-  };
-  const sendPost = (event) => {
+const CreatePost = ({ newPostText, handlerChange, sendPost }) => {
+  const onSendPost = (event) => {
     event.preventDefault();
-    dispatch(createNewPostActionCreator());
+    sendPost();
   };
   return (
     <section className="create_ports profile_section">
@@ -17,9 +10,9 @@ const CreatePost = ({ newPostText, dispatch }) => {
         <textarea
           placeholder="Write Something"
           value={newPostText}
-          onChange={handlerChange}
+          onChange={(e) => handlerChange(e.target.value)}
         ></textarea>
-        <button type="submit" className="button" onClick={sendPost}>
+        <button type="submit" className="button" onClick={onSendPost}>
           Create
         </button>
       </form>

@@ -2,9 +2,9 @@ import '../assets/styles/App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './header/Header';
 
-import Profile from '../components/profile/Profile';
+import { ProfileContainer } from '../components/profile/ProfileContainer';
 import { News } from '../components/news/News';
-import { Dialogs } from "../components/messages/Dialogs";
+import { DialogsContainer } from "../components/messages/DialogsContainer";
 
 
 function App({ state, dispatch }) {
@@ -18,16 +18,16 @@ function App({ state, dispatch }) {
               <h1>Welcome</h1>
             } />
             <Route path='/profile' element={
-              <Profile
+              <ProfileContainer
                 userProfile={state.userProfile}
                 postData={state.postData}
                 dispatch={dispatch}
               />
             } />
             <Route path='/dialogs/*' element={
-              <Dialogs
-                getSelectedDialog={
-                  state.dialogsData.getSelectedDialog.bind(state.dialogsData)
+              <DialogsContainer
+                selectedDialog={
+                  state.dialogsData.getSelectedDialog()
                 }
                 dialogs={state.dialogsData.dialogs}
                 dispatch={dispatch}
