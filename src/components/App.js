@@ -6,6 +6,10 @@ import { ProfileContainer } from '../components/profile/ProfileContainer';
 import { News } from '../components/news/News';
 import { DialogsContainer } from "../components/messages/DialogsContainer";
 
+// 
+import { ModalWindowContent } from './react-context/ModalWindow';
+import { Provider } from './react-context/reactContext';
+// 
 
 function App({ state, dispatch }) {
   return (
@@ -39,6 +43,13 @@ function App({ state, dispatch }) {
           </Routes>
         </div>
       </BrowserRouter>
+
+      {/*  */}
+      {/* <Provider>
+        <ModalWindowContent />
+      </Provider> */}
+      {/*  */}
+
     </div>
 
   )
