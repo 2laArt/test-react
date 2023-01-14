@@ -1,10 +1,13 @@
+import { connect } from "react-redux";
 import {
   sendMessageActionCreator,
   showDialogActionCreator,
+  newValueOfMessageActionCreator,
 } from "../../redux/reducers/dialogsReducer";
 import { useState } from "react";
 import { Dialogs } from "./Dialogs";
-export const DialogsContainer = ({ dialogs, selectedDialog, dispatch }) => {
+
+export const DialogsContainer1 = ({ dialogs, selectedDialog, dispatch }) => {
   const [messageValue, setMessageValue] = useState("");
 
   const chooseMessageValue = (event) =>
@@ -30,3 +33,19 @@ export const DialogsContainer = ({ dialogs, selectedDialog, dispatch }) => {
     />
   );
 };
+const mapStateToProps = (state) => ({
+  dialogs: state.dialogsData.dialogs,
+  selectedDialog: state.dialogsData.getSelectedDialog(),
+  messageValue: state.dialogsData.newMessage,
+});
+const mapDispatchToProps = (dispatch) => ({
+  chooseMessageValue: (text) => dispatch(newValueOfMessageActionCreator(text)),
+  sendMessage: () => dispatch(sendMessageActionCreator()),
+
+  chooseDialog: (index) => dispatch(showDialogActionCreator(index)),
+});
+
+export const DialogsContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dialogs);

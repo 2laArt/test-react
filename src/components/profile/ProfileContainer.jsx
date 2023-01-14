@@ -1,10 +1,11 @@
+import { connect } from "react-redux";
 import {
   createNewPostActionCreator,
   updateInputPostActionCreator,
 } from "../../redux/reducers/postsReducer";
 import { Profile } from "./Profile";
 
-export const ProfileContainer = ({ postData, userProfile, dispatch }) => {
+export const ProfileContainer1 = ({ postData, userProfile, dispatch }) => {
   const handlerChange = (text) => {
     dispatch(updateInputPostActionCreator(text));
   };
@@ -21,3 +22,17 @@ export const ProfileContainer = ({ postData, userProfile, dispatch }) => {
     />
   );
 };
+
+const mapStateToProps = (state) => ({
+  postData: state.postData,
+  userProfile: state.userProfile,
+});
+const mapDispatchToProps = (dispatch) => ({
+  handlerChange: (text) => dispatch(updateInputPostActionCreator(text)),
+  sendPost: () => dispatch(createNewPostActionCreator()),
+});
+
+export const ProfileContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Profile);

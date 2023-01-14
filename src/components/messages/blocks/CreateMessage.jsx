@@ -12,7 +12,7 @@ export const CreateMessage = ({
       <textarea
         placeholder="write message"
         value={messageValue}
-        onChange={chooseMessageValue}
+        onChange={(e) => chooseMessageValue(e.target.value)}
       ></textarea>
       <button className="button" onClick={onSendMessage}>
         Create

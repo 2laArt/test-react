@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+
 import './assets/styles/index.css';
 import App from './components/App';
 
@@ -8,12 +10,14 @@ import { store } from './redux/reduxState';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const rerender = (store) => {
+const rerender = () => {
 	root.render(
 		<React.StrictMode>
-			<App state={store.getState()} dispatch={store.dispatch.bind(store)} />
+			<Provider store={store}>
+				<App />
+			</Provider>
 		</React.StrictMode>
 	);
 }
-rerender(store)
-store.subscribe(() => rerender(store))
+rerender()
+// store.subscribe(rerender)

@@ -15,7 +15,7 @@ export const Dialogs = ({
       <SideBarDl dialogs={dialogs} chooseDialog={chooseDialog} />
       <div
         style={{
-          display: selectedDialog.length === 0 ? "none" : "block",
+          display: selectedDialog.length ? "block" : "none",
         }}
       >
         <Messages selectedDialog={selectedDialog}>

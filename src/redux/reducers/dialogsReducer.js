@@ -1,5 +1,6 @@
 const SHOW_DIALOG = 'SHOW-DIALOG';
 const SEND_MESSAGE = 'SEND-MESSAGE';
+const NEW_VALUE_OF_MESSAGE = 'NEW-VALUE-OF-MESSAGE';
 
 const defaultState = {
 	messages: [
@@ -76,19 +77,18 @@ const defaultState = {
 			name: "Lisa Pop",
 		},
 	],
-	_selectedDialog: [],
-	getSelectedDialog() { return this._selectedDialog },
-	setSelectedDialog(i) { this._selectedDialog = this.messages[i] },
+	getSelectedDialog() {
+		return this.messages[this.selectedDialogIndex] || []
+	},
 	selectedDialogIndex: undefined,
+	newMessage: '',
 }
 
 const showDialog = (state, param) => {
-	state.selectedDialogIndex = param - 1
-	state.setSelectedDialog(state.selectedDialogIndex);
-	return state;
+	return { ...state, selectedDialogIndex: --param };
 }
 
-const sendMessage = (state, param) => {
+const sendMessage = (state) => {
 	if (!(
 		state.selectedDialogIndex >= 0 &&
 		state.selectedDialogIndex <= state.messages.length - 1
@@ -96,21 +96,24 @@ const sendMessage = (state, param) => {
 		alert('dialog not selected');
 		return
 	}
-	state.messages[state.selectedDialogIndex].push(
-		{
-			id: 1,
-			text: param
-		}
-	)
-	return state;
+	state.messages[state.selectedDialogIndex].push({
+		id: 1,
+		text: state.newMessage
+	})
+	return { ...state, newMessage: '' }
+}
+const updateMessageValue = (state, param) => {
+	return { ...state, newMessage: param }
 }
 
 export const dialogsReducer = (state = defaultState, action) => {
 	switch (action.type) {
 		case SHOW_DIALOG:
 			return showDialog(state, action.param);
+		case NEW_VALUE_OF_MESSAGE:
+			return updateMessageValue(state, action.param);
 		case SEND_MESSAGE:
-			return sendMessage(state, action.param);
+			return sendMessage(state);
 		default:
 			return state;
 	}
@@ -120,7 +123,10 @@ export const showDialogActionCreator = (param) => ({
 	type: SHOW_DIALOG,
 	param
 })
-export const sendMessageActionCreator = (param) => ({
+export const sendMessageActionCreator = () => ({
 	type: SEND_MESSAGE,
+})
+export const newValueOfMessageActionCreator = (param) => ({
+	type: NEW_VALUE_OF_MESSAGE,
 	param
 })
