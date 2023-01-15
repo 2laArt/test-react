@@ -1,0 +1,25 @@
+.user_section {
+	padding: 2rem 0;
+}
+
+.user_card {
+	min-height: 10rem;
+	background: rgba(0, 0, 0, .3);
+	border-radius: 1rem;
+	box-shadow: 0 0 .5rem .5rem rgba(0, 0, 0, .5);
+	position: relative;
+	padding: 1.5rem;
+	padding-left: 8rem;
+	margin-bottom: 2rem;
+}
+
+
+.card_avatar {
+	max-width: 7rem;
+	height: auto;
+	border-radius: 50%;
+	position: absolute;
+	top: 50%;
+	left: 1rem;
+	transform: translateY(-50%);
+}

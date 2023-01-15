@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './header/Header';
 
 import { ProfileContainer } from '../components/profile/ProfileContainer';
-import { News } from '../components/news/News';
+import { UsersContainer } from './users/UsersContainer';
 import { DialogsContainer } from "../components/messages/DialogsContainer";
 
 
@@ -24,8 +24,8 @@ function App() {
             <Route path='/dialogs/*' element={
               <DialogsContainer />
             } />
-            <Route path='/news' element={
-              <News />
+            <Route path='/users' element={
+              <UsersContainer />
             } />
           </Routes>
         </div>

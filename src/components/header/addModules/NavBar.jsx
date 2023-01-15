@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 const NavBar = () => {
-  const paths = ["profile", "news", "dialogs"];
+  const paths = ["profile", "users", "dialogs"];
   return (
     <nav className="nav_bar">
       {paths.map((p, i) => {
