@@ -5,15 +5,18 @@ import App from './components/App';
 
 // import { store } from './redux/store';
 import { store } from './redux/reduxState';
+import { ProviderStore } from './components/react-context/contextStore';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const rerender = (store) => {
+const rerender = () => {
 	root.render(
 		<React.StrictMode>
-			<App state={store.getState()} dispatch={store.dispatch.bind(store)} />
+			<ProviderStore>
+				<App />
+			</ProviderStore>
 		</React.StrictMode>
 	);
 }
-rerender(store)
-store.subscribe(() => rerender(store))
+rerender()
+store.subscribe(rerender)

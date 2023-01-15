@@ -5,13 +5,17 @@ import Header from './header/Header';
 import { ProfileContainer } from '../components/profile/ProfileContainer';
 import { News } from '../components/news/News';
 import { DialogsContainer } from "../components/messages/DialogsContainer";
+import { useContext } from 'react';
+import { ContextStore } from './react-context/contextStore';
 
 // 
-import { ModalWindowContent } from './react-context/ModalWindow';
-import { Provider } from './react-context/reactContext';
+// import { ModalWindowContent } from './react-context/modal/ModalWindow';
+// import { Provider } from './react-context/modal/reactContext';
 // 
 
-function App({ state, dispatch }) {
+function App() {
+  const store = useContext(ContextStore);
+  const state = store.getState();
   return (
     <div className="App">
       <BrowserRouter>
@@ -25,7 +29,7 @@ function App({ state, dispatch }) {
               <ProfileContainer
                 userProfile={state.userProfile}
                 postData={state.postData}
-                dispatch={dispatch}
+                dispatch={store.dispatch}
               />
             } />
             <Route path='/dialogs/*' element={
@@ -34,7 +38,7 @@ function App({ state, dispatch }) {
                   state.dialogsData.getSelectedDialog()
                 }
                 dialogs={state.dialogsData.dialogs}
-                dispatch={dispatch}
+                dispatch={store.dispatch}
               />
             } />
             <Route path='/news' element={
@@ -44,11 +48,9 @@ function App({ state, dispatch }) {
         </div>
       </BrowserRouter>
 
-      {/*  */}
       {/* <Provider>
         <ModalWindowContent />
       </Provider> */}
-      {/*  */}
 
     </div>
 
