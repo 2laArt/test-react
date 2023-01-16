@@ -89,18 +89,21 @@ const showDialog = (state, param) => {
 }
 
 const sendMessage = (state) => {
-	if (!(
-		state.selectedDialogIndex >= 0 &&
-		state.selectedDialogIndex <= state.messages.length - 1
-	)) {
-		alert('dialog not selected');
-		return
+	return {
+		...state,
+		messages: state.messages.map((msg, i) =>
+			(i === state.selectedDialogIndex) ?
+				[
+					...msg,
+					{
+						id: 1,
+						text: state.newMessage
+					}
+				] :
+				msg
+		),
+		newMessage: '',
 	}
-	state.messages[state.selectedDialogIndex].push({
-		id: 1,
-		text: state.newMessage
-	})
-	return { ...state, newMessage: '' }
 }
 const updateMessageValue = (state, param) => {
 	return { ...state, newMessage: param }
