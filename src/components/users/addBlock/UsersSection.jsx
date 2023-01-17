@@ -4,14 +4,21 @@ import React from "react";
 
 export class UserSection extends React.Component {
   componentDidMount() {
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/users?count=100`)
-      .then((response) =>
-        this.props.setUsers({
-          totalCount: response.data.totalCount,
-          users: response.data.items,
-        })
-      );
+//     axios
+//       .get(`https://social-network.samuraijs.com/api/1.0/users?count=100`)
+//       .then((response) =>
+//         this.props.setUsers({
+//           totalCount: response.data.totalCount,
+//           users: response.data.items,
+//         })
+//       );
+    fetch(`https://social-network.samuraijs.com/api/1.0/users?count=100`)
+    .then(response=>response.json())
+    .then(data=> 
+          this.props.setUsers({
+          totalCount: data.totalCount,
+          users: data.items,
+        }))
   }
   render() {
     return (
