@@ -14,7 +14,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <div className="container">
-          <Routes>
+          <Routes basename={process.env.PUBLIC_URL}>
             <Route path='/' element={
               <h1>Welcome</h1>
             } />

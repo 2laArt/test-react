@@ -1,5 +1,6 @@
 const ADD_NEW_FRIEND = 'ADD-NEW-FRIEND';
-const SET_USERS = 'SET-USERS'
+const SET_USERS = 'SET-USERS';
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 
 const defaultState = {
 	users: [
@@ -43,7 +44,38 @@ const defaultState = {
 				large: 'http://estateplanlawblog.com/wp-content/uploads/considering-150x150.jpeg',
 			},
 		}
-	]
+	],
+	getUsers() {
+		return this.users.slice(
+			this.getStartedDot(), this.getEndDot()
+		)
+	},
+	getStartedDot() {
+		return this.currentPage * this.pageUsersCount
+	},
+	getEndDot() {
+		const intendedEnd = this.currentPage * this.pageUsersCount + this.pageUsersCount;
+		return intendedEnd >= this.users.length ?
+			this.users.length : intendedEnd;
+	},
+	getNumberOfPage() {
+		const someVar = 2;
+		const start = 1;
+		const last = Math.floor(this.users.length / this.pageUsersCount);
+		const previous = this.currentPage > someVar ? this.currentPage - 1 : undefined;
+		const next = this.currentPage < last - someVar ? this.currentPage + 1 : undefined;
+		return ([...new Set([
+			start,
+			previous,
+			this.currentPage,
+			next,
+			last
+		])].filter(i => i))
+	},
+	totalCountUsers: 1,
+	pageUsersCount: 5,
+	currentPage: 1,
+
 }
 
 const addNewFriend = (state, param) => {
@@ -64,12 +96,19 @@ const setUsers = (state, param) => {
 		...state,
 		users: [
 			...state.users,
-			...param.filter(i => {
+			...param.users.filter(i => {
 				return !state.users.some(k => {
 					return k.id === i.id
 				})
 			})
-		]
+		],
+		totalCountUsers: param.totalCount,
+	}
+}
+const setCurrentPage = (state, param) => {
+	return {
+		...state,
+		currentPage: param,
 	}
 }
 export const usersReducer = (state = defaultState, action) => {
@@ -78,6 +117,8 @@ export const usersReducer = (state = defaultState, action) => {
 			return addNewFriend(state, action.param);
 		case SET_USERS:
 			return setUsers(state, action.param)
+		case SET_CURRENT_PAGE:
+			return setCurrentPage(state, action.param)
 		default:
 			return state;
 	}
@@ -87,7 +128,11 @@ export const addNewFriendActionCreator = (param) => ({
 	type: ADD_NEW_FRIEND,
 	param: param,
 })
-export const setUSersActionCreator = (param) => ({
+export const setUsersActionCreator = (param) => ({
 	type: SET_USERS,
+	param
+})
+export const setCurrentPageActionCreator = (param) => ({
+	type: SET_CURRENT_PAGE,
 	param
 })

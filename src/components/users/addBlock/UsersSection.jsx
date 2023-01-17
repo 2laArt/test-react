@@ -5,12 +5,30 @@ import React from "react";
 export class UserSection extends React.Component {
   componentDidMount() {
     axios
-      .get(`https://social-network.samuraijs.com/api/1.0/users`)
-      .then((response) => this.props.setUsers(response.data.items));
+      .get(`https://social-network.samuraijs.com/api/1.0/users?count=100`)
+      .then((response) =>
+        this.props.setUsers({
+          totalCount: response.data.totalCount,
+          users: response.data.items,
+        })
+      );
   }
   render() {
     return (
       <div className="user_section">
+        <div className="pagination">
+          {this.props.numberOfPage.map((page) => (
+            <button
+              style={{
+                color: this.props.currentPage === page ? " red" : "inherit",
+              }}
+              onClick={() => this.props.setCurrentPage(page)}
+              key={page}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
         {this.props.users.map((user) => (
           <UserCard
             user={user}
