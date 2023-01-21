@@ -18,7 +18,7 @@ function App() {
             <Route path='/' element={
               <h1>Welcome</h1>
             } />
-            <Route path='/profile' element={
+            <Route path='/profile/*' element={
               <ProfileContainer />
             } />
             <Route path='/dialogs/*' element={

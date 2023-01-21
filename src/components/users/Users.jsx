@@ -1,28 +1,34 @@
 import "../../assets/styles/addStyles/UsersCard.css";
-import { UserSection } from "./addBlock/UsersSection";
-import { React } from "react";
+import React from "react";
 
-export const Users = ({
-  users,
-  numberOfPage,
-  currentPage,
-  addNewFriend,
-  setUsers,
-  setCurrentPage,
-}) => {
-  // console.log(users);
+import { UserCard } from "./addBlock/UserCard";
+
+export const Users = (props) => {
   return (
-    <article>
-      <h3>USERS</h3>
-      <UserSection
-        users={users}
-        numberOfPage={numberOfPage}
-        currentPage={currentPage}
-        addNewFriend={addNewFriend}
-        setUsers={setUsers}
-        setCurrentPage={setCurrentPage}
-      />
-    </article>
+    <div className="users">
+      <div className="pagination">
+        {props.numberOfPage.map((page) => (
+          <button
+            style={{
+              color: props.currentPage === page ? " red" : "inherit",
+            }}
+            onClick={() => props.setCurrentPage(page)}
+            key={page}
+          >
+            {page}
+          </button>
+        ))}
+      </div>
+      <div className="users_section">
+        {props.users.map((user) => (
+          <UserCard
+            user={user}
+            addNewFriend={props.addNewFriend}
+            key={user.id}
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 

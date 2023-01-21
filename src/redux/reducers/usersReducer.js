@@ -3,58 +3,20 @@ const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 
 const defaultState = {
-	users: [
-		{
-			id: 1,
-			followed: false,
-			name: 'Ivan',
-			status: 'NIce to meet you',
-			photos: {
-				small: 'https://i.vippng.com/png/small/47-475879_happy-men-transparent-background-png-man-with-smartphone.png',
-				large: 'https://i.vippng.com/png/small/47-475879_happy-men-transparent-background-png-man-with-smartphone.png',
-			},
-		},
-		{
-			id: 2,
-			followed: false,
-			name: 'Jessica',
-			status: 'I Like America',
-			photos: {
-				small: null,
-				large: null,
-			},
-		},
-		{
-			id: 3,
-			followed: false,
-			name: 'Join',
-			status: 'London is the capital of Britain',
-			photos: {
-				small: null,
-				large: null,
-			},
-		},
-		{
-			id: 4,
-			followed: true,
-			name: 'Anna',
-			status: 'O my God',
-			photos: {
-				small: 'http://estateplanlawblog.com/wp-content/uploads/considering-150x150.jpeg',
-				large: 'http://estateplanlawblog.com/wp-content/uploads/considering-150x150.jpeg',
-			},
-		}
-	],
+	users: [],
+	totalCountUsers: 1,
+	pageUsersCount: 5,
+	currentPage: 1,
 	getUsers() {
 		return this.users.slice(
 			this.getStartedDot(), this.getEndDot()
 		)
 	},
 	getStartedDot() {
-		return this.currentPage * this.pageUsersCount
+		return (this.currentPage - 1) * this.pageUsersCount
 	},
 	getEndDot() {
-		const intendedEnd = this.currentPage * this.pageUsersCount + this.pageUsersCount;
+		const intendedEnd = (this.currentPage - 1) * this.pageUsersCount + this.pageUsersCount;
 		return intendedEnd >= this.users.length ?
 			this.users.length : intendedEnd;
 	},
@@ -62,19 +24,17 @@ const defaultState = {
 		const someVar = 2;
 		const start = 1;
 		const last = Math.floor(this.users.length / this.pageUsersCount);
-		const previous = this.currentPage > someVar ? this.currentPage - 1 : undefined;
-		const next = this.currentPage < last - someVar ? this.currentPage + 1 : undefined;
+		const current = this.currentPage;
+		const previous = this.currentPage > someVar ? current - 1 : undefined;
+		const next = this.currentPage < last - 1 ? current + 1 : undefined;
 		return ([...new Set([
 			start,
 			previous,
-			this.currentPage,
+			current,
 			next,
 			last
 		])].filter(i => i))
 	},
-	totalCountUsers: 1,
-	pageUsersCount: 5,
-	currentPage: 1,
 
 }
 

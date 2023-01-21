@@ -1,18 +1,33 @@
-.user_section {
+.users {
 	padding: 2rem 0;
 }
 
+.users_section {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+
 .user_card {
-	min-height: 10rem;
+	max-width: 33%;
+	min-width: 33rem;
+	min-height: 12.1rem;
+	flex: 1 1 1;
 	background: rgba(0, 0, 0, .3);
 	border-radius: 1rem;
 	box-shadow: 0 0 .5rem .5rem rgba(0, 0, 0, .5);
 	position: relative;
-	padding: 1.5rem;
+	padding: 1rem;
 	padding-left: 8rem;
-	margin-bottom: 2rem;
+	margin: 1rem;
 }
 
+@media (max-width: 600px) {
+	.user_card {
+		/* display: none; */
+	}
+}
 
 .card_avatar {
 	max-width: 7rem;
@@ -22,4 +37,9 @@
 	top: 50%;
 	left: 1rem;
 	transform: translateY(-50%);
+}
+
+.user_button {
+	font-size: 1.1rem;
+	padding: .5rem 1rem;
 }

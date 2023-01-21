@@ -2,6 +2,11 @@
 	padding: 2rem 0;
 }
 
+.profile_intro {
+	height: 50vmin;
+	overflow: hidden;
+}
+
 .profile_section {
 	padding: 1rem;
 	margin: 2rem 0;
@@ -10,15 +15,17 @@
 	border-radius: .5rem;
 }
 
-.profile_intro {
-	height: 50vmin;
-	overflow: hidden;
-}
+.info_wrapper {}
 
-.profile_info {
+.profile_info_flex {
 	display: flex;
 	justify-content: left;
 	align-items: center;
+}
+
+.profile_info {
+	font-size: 1.5rem;
+	margin-bottom: 2rem;
 }
 
 .avatar {

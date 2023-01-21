@@ -89,3 +89,8 @@ button:hover {
   overflow: hidden;
   margin-right: 1rem;
 }
+
+.bold_color {
+  font-weight: bold;
+  color: #e19489
+}
