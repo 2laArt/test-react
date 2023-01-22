@@ -61,7 +61,8 @@ a:hover {
   padding: 0 1rem;
 }
 
-button {
+button,
+input[type='text'] {
   background-color: rgba(0, 0, 0, 0.5);
   padding: 1rem 2rem;
   margin: 1rem 0;

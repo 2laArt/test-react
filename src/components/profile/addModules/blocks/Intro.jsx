@@ -1,4 +1,4 @@
-export const ProfileIntro = ({ introImg }) => {
+export const Intro = ({ introImg }) => {
   return (
     <div className="profile_intro">
       <img src={introImg} alt="Profile Intro" />

@@ -2,7 +2,12 @@ import "../../assets/styles/stylesModules/Profile.modules.css";
 import { UserProfile } from "./addModules/UserProfile";
 import UserPosts from "./addModules/UserPosts";
 import CreatePost from "./addModules/CreatePost";
-export const Profile = ({ postData, userProfile, handlerChange, sendPost }) => {
+export const ProfilePage = ({
+  postData,
+  userProfile,
+  handlerChange,
+  sendPost,
+}) => {
   return (
     <div className="profile">
       <div className="profile_data">

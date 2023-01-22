@@ -1,34 +1,35 @@
 import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import {
   createNewPostActionCreator,
   updateInputPostActionCreator,
 } from "../../redux/reducers/postsReducer";
 import { setUserDataActionCreator } from "../../redux/reducers/userProfileReducer";
 
-import { Profile } from "./Profile";
+import { ProfilePage } from "./ProfilePage";
 
 class ProfileWrapper extends React.Component {
-  getLocation() {
-    const location = new URL(window.location);
-    const last = location.pathname.split("/").pop();
-    const id = last && parseInt(last) ? parseInt(last) : 2;
-    return id;
-  }
   componentDidMount() {
+    const id = this.props.userId || 2;
     axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/profile/${this.getLocation()}`
-      )
+      .get(`https://social-network.samuraijs.com/api/1.0/profile/${id}`)
       .then((response) => this.props.setUserData(response.data));
   }
   render() {
     return (
-      this.props.userProfile.userData.fullName && <Profile {...this.props} />
+      this.props.userProfile.userData.fullName && (
+        <ProfilePage {...this.props} />
+      )
     );
   }
 }
+
+const ProfileLocationContainer = (props) => {
+  const param = useParams();
+  return <ProfileWrapper {...props} {...param} />;
+};
 
 const mapStateToProps = (state) => ({
   postData: state.postData,
@@ -43,7 +44,7 @@ const mapDispatchToProps = {
 export const ProfileContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ProfileWrapper);
+)(ProfileLocationContainer);
 
 //   const handlerChange = (text) => {
 //     dispatch(updateInputPostActionCreator(text));

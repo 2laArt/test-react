@@ -1,10 +1,10 @@
-import { ProfileIntro } from "./blocks/UserIntro";
-import ProfileInfo from "./blocks/UserInfo";
+import { Intro } from "./blocks/Intro";
+import { ProfileInfo } from "./blocks/ProfileInfo";
 
 export const UserProfile = ({ userProfile }) => {
   return (
     <div className="user_profile">
-      <ProfileIntro introImg={userProfile.introImg} />
+      <Intro introImg={userProfile.introImg} />
       <ProfileInfo userData={userProfile.userData} />
     </div>
   );
