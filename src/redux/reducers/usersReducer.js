@@ -1,4 +1,4 @@
-const ADD_NEW_FRIEND = 'ADD-NEW-FRIEND';
+const CHANGE_FOLLOW = 'CHANGE-FOLLOW';
 const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 
@@ -38,7 +38,7 @@ const defaultState = {
 
 }
 
-const addNewFriend = (state, param) => {
+const changeFollow = (state, param) => {
 	return {
 		...state,
 		users: state.users.map(
@@ -73,8 +73,8 @@ const setCurrentPage = (state, param) => {
 }
 export const usersReducer = (state = defaultState, action) => {
 	switch (action.type) {
-		case ADD_NEW_FRIEND:
-			return addNewFriend(state, action.param);
+		case CHANGE_FOLLOW:
+			return changeFollow(state, action.param);
 		case SET_USERS:
 			return setUsers(state, action.param)
 		case SET_CURRENT_PAGE:
@@ -84,8 +84,8 @@ export const usersReducer = (state = defaultState, action) => {
 	}
 }
 
-export const addNewFriendActionCreator = (param) => ({
-	type: ADD_NEW_FRIEND,
+export const changeFollowActionCreator = (param) => ({
+	type: CHANGE_FOLLOW,
 	param: param,
 })
 export const setUsersActionCreator = (param) => ({

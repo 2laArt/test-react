@@ -12,9 +12,11 @@ import { ProfilePage } from "./ProfilePage";
 
 class ProfileWrapper extends React.Component {
   componentDidMount() {
-    const id = this.props.userId || 2;
+    const id = this.props.userId || this.props.myId;
     axios
-      .get(`https://social-network.samuraijs.com/api/1.0/profile/${id}`)
+      .get(`https://social-network.samuraijs.com/api/1.0/profile/${id}`, {
+        withCredentials: true,
+      })
       .then((response) => this.props.setUserData(response.data));
   }
   render() {
@@ -32,6 +34,7 @@ const ProfileLocationContainer = (props) => {
 };
 
 const mapStateToProps = (state) => ({
+  myId: state.auth.data.id,
   postData: state.postData,
   userProfile: state.userProfile,
 });

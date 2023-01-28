@@ -23,7 +23,7 @@ export const Users = (props) => {
         {props.users.map((user) => (
           <UserCard
             user={user}
-            addNewFriend={props.addNewFriend}
+            changeFollow={props.changeFollow}
             key={user.id}
           />
         ))}

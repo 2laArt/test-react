@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 
 import './assets/styles/index.css';
-import App from './components/App';
+import AppContainer from './components/App';
 
 // import { store } from './redux/store';
 import { store } from './redux/reduxState';
@@ -14,7 +14,7 @@ const rerender = () => {
 	root.render(
 		// <React.StrictMode>
 		<Provider store={store}>
-			<App />
+			<AppContainer />
 		</Provider>
 		// </React.StrictMode>
 	);

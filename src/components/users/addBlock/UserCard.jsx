@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-export const UserCard = ({ user, addNewFriend }) => {
+export const UserCard = ({ user, changeFollow }) => {
   const defaultPhoto = {
     male: "https://i.livelib.ru/auface/320145/o/37dd/Oleg_Sidelnikov.jpg",
     female:
@@ -8,7 +8,7 @@ export const UserCard = ({ user, addNewFriend }) => {
   };
   const addFriend = (e) => {
     e.preventDefault();
-    addNewFriend(user.id);
+    changeFollow(user.id);
   };
   return (
     <div className="user_card">

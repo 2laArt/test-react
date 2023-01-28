@@ -1,47 +1,58 @@
 import '../assets/styles/App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { ProfileContainer } from '../components/profile/ProfileContainer';
 import { UsersContainer } from './users/UsersContainer';
 import { DialogsContainer } from "../components/messages/DialogsContainer";
 import { Authentication } from './authentication/Authentication';
 import { HeaderContainer } from './header/HeaderContainer';
+import { Preloader } from './repeating/preloader/Preloader';
 
 
 
-function App() {
+function App({ isResponse }) {
   return (
-    <div className="App">
+    <div className="App" >
       <BrowserRouter>
         <HeaderContainer />
         <div className="container">
-          <Routes basename={process.env.PUBLIC_URL}>
-            <Route path='/' element={
-              <h1>Welcome</h1>
-            } />
-            <Route path='/profile/:userId?' element={
-              <ProfileContainer />
-            } />
-            <Route path='/dialogs/:userId?' element={
-              <DialogsContainer />
-            } />
-            <Route path='/users' element={
-              <UsersContainer />
-            } />
+          {
+            isResponse ? <Tree /> :
+              <Preloader />
+          }
 
-            {/*  */}
-            <Route path='/auth' element={<Authentication />}></Route>
-            {/*  */}
-          </Routes>
         </div>
       </BrowserRouter>
 
     </div>
-
   )
 }
+const Tree = () => {
+  return (
+    <Routes basename={process.env.PUBLIC_URL}>
+      <Route path='/' element={
+        <h1>Welcome</h1>
+      } />
+      <Route path='/profile/:userId?' element={
+        <ProfileContainer />
+      } />
+      <Route path='/dialogs/:userId?' element={
+        <DialogsContainer />
+      } />
+      <Route path='/users' element={
+        <UsersContainer />
+      } />
 
-export default App;
+      {/*  */}
+      <Route path='/auth' element={<Authentication />}></Route>
+      {/*  */}
+    </Routes>
+  )
+}
+const AppContainer = connect((state) => ({ isResponse: state.auth.isResponse, }))(App)
+
+export default AppContainer;
 
 // {[...router].map(i => <Route path={i.path} element={i.element} key={i.path} />)}
 
