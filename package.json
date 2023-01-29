@@ -1,6 +1,7 @@
 {
   "name": "first-project",
   "version": "0.1.0",
+  "start_url": ".",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",

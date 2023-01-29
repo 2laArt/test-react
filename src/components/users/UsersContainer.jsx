@@ -5,6 +5,7 @@ import {
   changeFollowActionCreator,
   setUsersActionCreator,
   setCurrentPageActionCreator,
+  toggleInProgressActionCreator,
 } from "../../redux/reducers/usersReducer";
 import { Users } from "./Users";
 
@@ -19,19 +20,15 @@ class UserBu extends React.Component {
   }
   changeFollow = (id) => {
     const user = this.props.users.filter((u) => u.id === id)[0].followed;
-    user ? this.unFollowUser(id) : this.followUser(id);
+    this.props.toggleInProgress(id);
+    const result = user ? requests.unFollowUser(id) : requests.followUser(id);
+    result.then((resultCode) => {
+      if (!resultCode) {
+        this.props.changeFollow(id);
+        this.props.toggleInProgress(id);
+      }
+    });
   };
-  followUser(id) {
-    requests
-      .followUser(id)
-      .then((resultCode) => !resultCode && this.props.changeFollow(id));
-  }
-  unFollowUser(id) {
-    requests
-      .unFollowUser(id)
-      .then((resultCode) => !resultCode && this.props.changeFollow(id));
-  }
-
   render() {
     return (
       <Users
@@ -40,6 +37,7 @@ class UserBu extends React.Component {
         currentPage={this.props.currentPage}
         changeFollow={this.changeFollow}
         setCurrentPage={this.props.setCurrentPage}
+        inProgress={this.props.inProgress}
       />
     );
   }
@@ -49,13 +47,14 @@ const mapStateToProps = (state) => ({
   users: state.usersData.getUsers(),
   numberOfPage: state.usersData.getNumberOfPage(),
   currentPage: state.usersData.currentPage,
-  APIKey: state.auth.APIKey,
+  inProgress: state.usersData.inProgress,
 });
 const mapDispatchToProps = {
   //cb(v)=>dispatch(ac(v))
   changeFollow: changeFollowActionCreator,
   setUsers: setUsersActionCreator,
   setCurrentPage: setCurrentPageActionCreator,
+  toggleInProgress: toggleInProgressActionCreator,
 };
 
 export const UsersContainer = connect(

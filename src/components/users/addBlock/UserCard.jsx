@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-export const UserCard = ({ user, changeFollow }) => {
+export const UserCard = ({ user, changeFollow, inProgress }) => {
   const defaultPhoto = {
     male: "https://i.livelib.ru/auface/320145/o/37dd/Oleg_Sidelnikov.jpg",
     female:
@@ -10,6 +10,8 @@ export const UserCard = ({ user, changeFollow }) => {
     e.preventDefault();
     changeFollow(user.id);
   };
+  const disabled = () => inProgress.some((id) => id === user.id);
+
   return (
     <div className="user_card">
       <NavLink to={`/profile/${user.id}`}>
@@ -24,9 +26,15 @@ export const UserCard = ({ user, changeFollow }) => {
           <div className="card_welcome">{user.status}</div>
         </div>
 
-        <button className="user_button" onClick={addFriend}>
-          {user.followed ? "remove" : "follow"}
-        </button>
+        {!disabled() && (
+          <button
+            className="user_button"
+            style={{ color: user.followed && "rgb(255, 169, 169)" }}
+            onClick={addFriend}
+          >
+            {user.followed ? "remove" : "follow"}
+          </button>
+        )}
       </NavLink>
     </div>
   );

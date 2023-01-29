@@ -22,6 +22,7 @@ export const Users = (props) => {
       <div className="users_section">
         {props.users.map((user) => (
           <UserCard
+            inProgress={props.inProgress}
             user={user}
             changeFollow={props.changeFollow}
             key={user.id}

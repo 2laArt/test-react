@@ -29,8 +29,9 @@ function App({ isResponse }) {
   )
 }
 const Tree = () => {
+  //process.env.PUBLIC_URL
   return (
-    <Routes basename={process.env.PUBLIC_URL}>
+    <Routes basename={`${process.env.PUBLIC_URL}/build`}>
       <Route path='/' element={
         <h1>Welcome</h1>
       } />

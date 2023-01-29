@@ -1,12 +1,14 @@
 const CHANGE_FOLLOW = 'CHANGE-FOLLOW';
 const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
+const TOGGLE_IN_PROGRESS = 'TOGGLE-IN-PROGRESS';
 
 const defaultState = {
 	users: [],
 	totalCountUsers: 1,
 	pageUsersCount: 5,
 	currentPage: 1,
+	inProgress: [],
 	getUsers() {
 		return this.users.slice(
 			this.getStartedDot(), this.getEndDot()
@@ -71,6 +73,15 @@ const setCurrentPage = (state, param) => {
 		currentPage: param,
 	}
 }
+const toggleInProgress = (state, param) => {
+	const isHave = state.inProgress.some(id => id === param);
+	return {
+		...state,
+		inProgress: isHave ?
+			state.inProgress.filter(id => id !== param) :
+			[...state.inProgress, param]
+	}
+}
 export const usersReducer = (state = defaultState, action) => {
 	switch (action.type) {
 		case CHANGE_FOLLOW:
@@ -78,7 +89,9 @@ export const usersReducer = (state = defaultState, action) => {
 		case SET_USERS:
 			return setUsers(state, action.param)
 		case SET_CURRENT_PAGE:
-			return setCurrentPage(state, action.param)
+			return setCurrentPage(state, action.param);
+		case TOGGLE_IN_PROGRESS:
+			return toggleInProgress(state, action.param)
 		default:
 			return state;
 	}
@@ -94,5 +107,9 @@ export const setUsersActionCreator = (param) => ({
 })
 export const setCurrentPageActionCreator = (param) => ({
 	type: SET_CURRENT_PAGE,
+	param
+})
+export const toggleInProgressActionCreator = (param) => ({
+	type: TOGGLE_IN_PROGRESS,
 	param
 })
