@@ -1,58 +1,35 @@
+import React from "react";
 import { connect } from "react-redux";
-import axios from "axios";
-import { Users } from "./Users";
+import { requests } from "../../api/requestAPI";
 import {
   changeFollowActionCreator,
   setUsersActionCreator,
   setCurrentPageActionCreator,
 } from "../../redux/reducers/usersReducer";
-import React from "react";
-
-const URL = "https://social-network.samuraijs.com/api/1.0";
+import { Users } from "./Users";
 
 class UserBu extends React.Component {
   componentDidMount() {
-    axios
-      .get(`${URL}/users?count=100&page=${227}`, { withCredentials: true })
-      .then((response) =>
-        this.props.setUsers({
-          users: response.data.items,
-          totalCount: response.data.totalCount,
-        })
-      );
+    requests.getUsers().then((response) =>
+      this.props.setUsers({
+        users: response.items,
+        totalCount: response.totalCount,
+      })
+    );
   }
   changeFollow = (id) => {
     const user = this.props.users.filter((u) => u.id === id)[0].followed;
     user ? this.unFollowUser(id) : this.followUser(id);
-    // this.props.changeFollow(id);
   };
   followUser(id) {
-    axios
-      .post(
-        `${URL}/follow/${id}`,
-        {},
-        {
-          withCredentials: true,
-          "API-KEY": this.props.APIKey,
-        }
-      )
-      .then((response) => {
-        !response.data.resultCode && this.props.changeFollow(id);
-      });
+    requests
+      .followUser(id)
+      .then((resultCode) => !resultCode && this.props.changeFollow(id));
   }
   unFollowUser(id) {
-    axios
-      .delete(
-        `${URL}/follow/${id}`,
-        {},
-        {
-          withCredentials: true,
-          "API-KEY": this.props.APIKey,
-        }
-      )
-      .then((response) => {
-        !response.data.resultCode && this.props.changeFollow(id);
-      });
+    requests
+      .unFollowUser(id)
+      .then((resultCode) => !resultCode && this.props.changeFollow(id));
   }
 
   render() {

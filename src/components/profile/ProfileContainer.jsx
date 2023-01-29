@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import axios from "axios";
 import { useParams } from "react-router-dom";
+import { requests } from "../../api/requestAPI";
 import {
   createNewPostActionCreator,
   updateInputPostActionCreator,
@@ -13,11 +13,7 @@ import { ProfilePage } from "./ProfilePage";
 class ProfileWrapper extends React.Component {
   componentDidMount() {
     const id = this.props.userId || this.props.myId;
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/profile/${id}`, {
-        withCredentials: true,
-      })
-      .then((response) => this.props.setUserData(response.data));
+    requests.getProfile(id).then((data) => this.props.setUserData(data));
   }
   render() {
     return (

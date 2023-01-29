@@ -9,7 +9,6 @@ const defaultState = {
 	},
 	isAuth: false,
 	isResponse: false,
-	APIKey: '8031c677-4f57-4285-9bff-140b1bc864a1',
 }
 const setAuthData = (state, param) => {
 	return {

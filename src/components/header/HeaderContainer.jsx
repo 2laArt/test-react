@@ -1,6 +1,6 @@
-import axios from "axios";
 import React from "react";
 import { connect } from "react-redux";
+import { requests } from "../../api/requestAPI";
 import {
   setAuthDataActionCreator,
   setIsResponseActionCreator,
@@ -10,17 +10,15 @@ import Header from "./Header";
 
 class HeaderWrapper extends React.Component {
   componentDidMount() {
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-        withCredentials: true,
-      })
+    requests
+      .auth()
       .then((response) => {
-        if (response.data.resultCode) {
+        if (response.resultCode) {
           window.history.pushState(null, "", "/auth");
         }
-        !response.data.resultCode && this.props.setAuthData(response.data.data);
-        setTimeout(() => this.props.setIsResponse(), 100);
-      });
+        !response.resultCode && this.props.setAuthData(response.data);
+      })
+      .finally(setTimeout(() => this.props.setIsResponse(), 100));
   }
   render() {
     return <Header isAuth={this.props.isAuth} login={this.props.login} />;
