@@ -1,3 +1,5 @@
+import { requests } from "../../api/requestAPI";
+
 const CHANGE_FOLLOW = 'CHANGE-FOLLOW';
 const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
@@ -9,20 +11,20 @@ const defaultState = {
 	pageUsersCount: 5,
 	currentPage: 1,
 	inProgress: [],
-	getUsers() {
+	getUsersPage() {
 		return this.users.slice(
-			this.getStartedDot(), this.getEndDot()
+			this.startedDot(), this.endDot()
 		)
 	},
-	getStartedDot() {
+	startedDot() {
 		return (this.currentPage - 1) * this.pageUsersCount
 	},
-	getEndDot() {
+	endDot() {
 		const intendedEnd = (this.currentPage - 1) * this.pageUsersCount + this.pageUsersCount;
 		return intendedEnd >= this.users.length ?
 			this.users.length : intendedEnd;
 	},
-	getNumberOfPage() {
+	getNumbersOfPages() {
 		const someVar = 2;
 		const start = 1;
 		const last = Math.floor(this.users.length / this.pageUsersCount);
@@ -37,10 +39,9 @@ const defaultState = {
 			last
 		])].filter(i => i))
 	},
-
 }
 
-const changeFollow = (state, param) => {
+const setFollowToState = (state, param) => {
 	return {
 		...state,
 		users: state.users.map(
@@ -82,10 +83,52 @@ const toggleInProgress = (state, param) => {
 			[...state.inProgress, param]
 	}
 }
+
+const setUsersActionCreator = (param) => ({
+	type: SET_USERS,
+	param
+})
+const changeFollowActionCreator = (param) => ({
+	type: CHANGE_FOLLOW,
+	param: param,
+})
+const toggleInProgressActionCreator = (param) => ({
+	type: TOGGLE_IN_PROGRESS,
+	param
+})
+export const setCurrentPageActionCreator = (param) => ({
+	type: SET_CURRENT_PAGE,
+	param
+})
+
+export const getUsers = () =>
+	dispatch =>
+		requests
+			.getUsers()
+			.then((response) =>
+				dispatch(setUsersActionCreator({
+					users: response.items,
+					totalCount: response.totalCount,
+				}))
+			);
+
+export const changeFollow = (users, id) =>
+	dispatch => {
+		const user = users.filter((u) => u.id === id)[0].followed;
+		dispatch(toggleInProgressActionCreator(id));
+		const result = user ? requests.unFollowUser(id) : requests.followUser(id);
+		result.then((resultCode) => {
+			if (!resultCode) {
+				dispatch(changeFollowActionCreator(id));
+				dispatch(toggleInProgressActionCreator(id));
+			}
+		});
+	}
+
 export const usersReducer = (state = defaultState, action) => {
 	switch (action.type) {
 		case CHANGE_FOLLOW:
-			return changeFollow(state, action.param);
+			return setFollowToState(state, action.param);
 		case SET_USERS:
 			return setUsers(state, action.param)
 		case SET_CURRENT_PAGE:
@@ -96,20 +139,3 @@ export const usersReducer = (state = defaultState, action) => {
 			return state;
 	}
 }
-
-export const changeFollowActionCreator = (param) => ({
-	type: CHANGE_FOLLOW,
-	param: param,
-})
-export const setUsersActionCreator = (param) => ({
-	type: SET_USERS,
-	param
-})
-export const setCurrentPageActionCreator = (param) => ({
-	type: SET_CURRENT_PAGE,
-	param
-})
-export const toggleInProgressActionCreator = (param) => ({
-	type: TOGGLE_IN_PROGRESS,
-	param
-})

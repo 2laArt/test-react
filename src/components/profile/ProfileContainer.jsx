@@ -1,19 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
-import { requests } from "../../api/requestAPI";
 import {
   createNewPostActionCreator,
   updateInputPostActionCreator,
 } from "../../redux/reducers/postsReducer";
-import { setUserDataActionCreator } from "../../redux/reducers/userProfileReducer";
+import { setProfile } from "../../redux/reducers/userProfileReducer";
 
 import { ProfilePage } from "./ProfilePage";
 
 class ProfileWrapper extends React.Component {
   componentDidMount() {
     const id = this.props.userId || this.props.myId;
-    requests.getProfile(id).then((data) => this.props.setUserData(data));
+    this.props.setProfile(id);
   }
   render() {
     return (
@@ -37,7 +36,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   handlerChange: updateInputPostActionCreator,
   sendPost: createNewPostActionCreator,
-  setUserData: setUserDataActionCreator,
+  setProfile: setProfile,
 };
 
 export const ProfileContainer = connect(

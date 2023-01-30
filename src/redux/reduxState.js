@@ -1,4 +1,5 @@
-import { legacy_createStore, combineReducers } from 'redux';
+import { legacy_createStore, combineReducers, applyMiddleware } from 'redux';
+import thunkMiddleware from "redux-thunk";
 import { authReducer } from './reducers/authReducer';
 
 import { dialogsReducer } from "./reducers/dialogsReducer";
@@ -14,5 +15,5 @@ const reducersBatch = combineReducers({
 	usersData: usersReducer,
 })
 
-export const store = legacy_createStore(reducersBatch);
+export const store = legacy_createStore(reducersBatch, applyMiddleware(thunkMiddleware));
 

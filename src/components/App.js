@@ -21,7 +21,6 @@ function App({ isResponse }) {
             isResponse ? <Tree /> :
               <Preloader />
           }
-
         </div>
       </BrowserRouter>
 
@@ -29,9 +28,8 @@ function App({ isResponse }) {
   )
 }
 const Tree = () => {
-  //process.env.PUBLIC_URL
   return (
-    <Routes basename={`${process.env.PUBLIC_URL}/build`}>
+    <Routes basename={`${process.env.PUBLIC_URL}`}>
       <Route path='/' element={
         <h1>Welcome</h1>
       } />

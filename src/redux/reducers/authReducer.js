@@ -1,3 +1,5 @@
+import { requests } from "../../api/requestAPI";
+
 const SET_AUTH = 'SET_AUTH';
 const SET_IS_RESPONSE = 'SET-IS-RESPONSE';
 const defaultState = {
@@ -24,6 +26,27 @@ const setIsResponse = (state) => {
 	}
 }
 
+const setAuthDataActionCreator = (param) => ({
+	type: SET_AUTH,
+	param
+})
+const setIsResponseActionCreator = () => ({
+	type: SET_IS_RESPONSE,
+})
+
+export const authUser = () =>
+	dispatch =>
+		requests
+			.auth()
+			.then((response) => {
+				if (response.resultCode) {
+					window.history.pushState(null, "", "/auth");
+					return;
+				}
+				dispatch(setAuthDataActionCreator(response.data));
+			})
+			.finally(setTimeout(() => dispatch(setIsResponseActionCreator()), 200));
+
 export const authReducer = (state = defaultState, action) => {
 	switch (action.type) {
 		case SET_AUTH:
@@ -34,10 +57,3 @@ export const authReducer = (state = defaultState, action) => {
 			return state;
 	}
 }
-export const setAuthDataActionCreator = (param) => ({
-	type: SET_AUTH,
-	param
-})
-export const setIsResponseActionCreator = () => ({
-	type: SET_IS_RESPONSE,
-})
