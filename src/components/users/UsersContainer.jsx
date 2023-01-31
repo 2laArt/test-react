@@ -23,6 +23,7 @@ class UserBu extends React.Component {
         changeFollow={this.changeFollow}
         setCurrentPage={this.props.setCurrentPage}
         inProgress={this.props.inProgress}
+        isAuth={this.props.isAuth}
       />
     );
   }
@@ -33,6 +34,7 @@ const mapStateToProps = (state) => ({
   numberOfPage: state.usersData.getNumbersOfPages(),
   currentPage: state.usersData.currentPage,
   inProgress: state.usersData.inProgress,
+  isAuth: state.auth.isAuth,
 });
 const mapDispatchToProps = {
   //cb(v)=>dispatch(ac(v))

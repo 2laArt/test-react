@@ -1,38 +1,13 @@
 import { connect } from "react-redux";
+import { compose } from "redux";
 import {
   sendMessageActionCreator,
   showDialogActionCreator,
   newValueOfMessageActionCreator,
 } from "../../redux/reducers/dialogsReducer";
-import { useState } from "react";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { Dialogs } from "./Dialogs";
 
-export const DialogsContainer1 = ({ dialogs, selectedDialog, dispatch }) => {
-  const [messageValue, setMessageValue] = useState("");
-
-  const chooseMessageValue = (event) =>
-    setMessageValue(() => event.target.value);
-
-  const sendMessage = () => {
-    dispatch(sendMessageActionCreator(messageValue));
-    setMessageValue(() => "");
-  };
-
-  const chooseDialog = (index) => {
-    dispatch(showDialogActionCreator(index));
-  };
-
-  return (
-    <Dialogs
-      dialogs={dialogs}
-      selectedDialog={selectedDialog}
-      messageValue={messageValue}
-      chooseDialog={chooseDialog}
-      chooseMessageValue={chooseMessageValue}
-      sendMessage={sendMessage}
-    />
-  );
-};
 const mapStateToProps = (state) => ({
   dialogs: state.dialogsData.dialogs,
   selectedDialog: state.dialogsData.getSelectedDialog(),
@@ -45,7 +20,34 @@ const mapDispatchToProps = (dispatch) => ({
   chooseDialog: (index) => dispatch(showDialogActionCreator(index)),
 });
 
-export const DialogsContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
+export const DialogsContainer = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withAuthRedirect
 )(Dialogs);
+
+// export const DialogsContainer1 = ({ dialogs, selectedDialog, dispatch }) => {
+//   const [messageValue, setMessageValue] = useState("");
+
+//   const chooseMessageValue = (event) =>
+//     setMessageValue(() => event.target.value);
+
+//   const sendMessage = () => {
+//     dispatch(sendMessageActionCreator(messageValue));
+//     setMessageValue(() => "");
+//   };
+
+//   const chooseDialog = (index) => {
+//     dispatch(showDialogActionCreator(index));
+//   };
+
+//   return (
+//     <Dialogs
+//       dialogs={dialogs}
+//       selectedDialog={selectedDialog}
+//       messageValue={messageValue}
+//       chooseDialog={chooseDialog}
+//       chooseMessageValue={chooseMessageValue}
+//       sendMessage={sendMessage}
+//     />
+//   );
+// };

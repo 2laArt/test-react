@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-export const UserCard = ({ user, changeFollow, inProgress }) => {
+export const UserCard = ({ user, changeFollow, inProgress, isAuth }) => {
   const defaultPhoto = {
     male: "https://i.livelib.ru/auface/320145/o/37dd/Oleg_Sidelnikov.jpg",
     female:
@@ -26,7 +26,7 @@ export const UserCard = ({ user, changeFollow, inProgress }) => {
           <div className="card_welcome">{user.status}</div>
         </div>
 
-        {!disabled() && (
+        {isAuth && !disabled() && (
           <button
             className="user_button"
             style={{ color: user.followed && "rgb(255, 169, 169)" }}

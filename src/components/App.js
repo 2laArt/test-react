@@ -1,3 +1,4 @@
+import React from 'react';
 import '../assets/styles/App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -10,7 +11,20 @@ import { HeaderContainer } from './header/HeaderContainer';
 import { Preloader } from './repeating/preloader/Preloader';
 
 
-
+const routes = [
+  {
+    path: '/profile/:userId?',
+    element: ProfileContainer
+  },
+  {
+    path: '/dialogs/:userId?',
+    element: DialogsContainer
+  },
+  {
+    path: '/users',
+    element: UsersContainer
+  }
+]
 function App({ isResponse }) {
   return (
     <div className="App" >
@@ -18,7 +32,7 @@ function App({ isResponse }) {
         <HeaderContainer />
         <div className="container">
           {
-            isResponse ? <Tree /> :
+            isResponse ? <Pages /> :
               <Preloader />
           }
         </div>
@@ -27,29 +41,29 @@ function App({ isResponse }) {
     </div>
   )
 }
-const Tree = () => {
-  return (
-    <Routes basename={`${process.env.PUBLIC_URL}`}>
-      <Route path='/' element={
-        <h1>Welcome</h1>
-      } />
-      <Route path='/profile/:userId?' element={
-        <ProfileContainer />
-      } />
-      <Route path='/dialogs/:userId?' element={
-        <DialogsContainer />
-      } />
-      <Route path='/users' element={
-        <UsersContainer />
-      } />
+const Pages = () => {
 
-      {/*  */}
-      <Route path='/auth' element={<Authentication />}></Route>
-      {/*  */}
-    </Routes>
+  return (
+    <>
+      <Routes basename={`${process.env.PUBLIC_URL}`}>
+        {/*  */}
+        <Route path='/auth' element={<Authentication />}></Route>
+        {/*  */}
+        <Route path='/' element={
+          <h1>Welcome</h1>
+        } />
+        {
+          routes.map(r => <Route
+            path={r.path}
+            element={<r.element />}
+            key={r.path} />)
+        }
+      </Routes>
+
+    </>
   )
 }
-const AppContainer = connect((state) => ({ isResponse: state.auth.isResponse, }))(App)
+const AppContainer = connect((state) => ({ isResponse: state.auth.isResponse }))(App)
 
 export default AppContainer;
 

@@ -17,7 +17,7 @@ const Header = ({ isAuth, login }) => {
             </NavLink>
           </div>
           <AuthNav isAuth={isAuth} login={login} />
-          <NavBar />
+          {isAuth && <NavBar />}
         </div>
       </div>
     </header>

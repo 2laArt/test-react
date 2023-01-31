@@ -1,11 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
+import { compose } from "redux";
 import { useParams } from "react-router-dom";
 import {
   createNewPostActionCreator,
   updateInputPostActionCreator,
 } from "../../redux/reducers/postsReducer";
 import { setProfile } from "../../redux/reducers/userProfileReducer";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
 import { ProfilePage } from "./ProfilePage";
 
@@ -39,9 +41,9 @@ const mapDispatchToProps = {
   setProfile: setProfile,
 };
 
-export const ProfileContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
+export const ProfileContainer = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withAuthRedirect
 )(ProfileLocationContainer);
 
 //   const handlerChange = (text) => {
