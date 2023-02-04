@@ -71,8 +71,11 @@ input[type='text'] {
   border: 1px solid #fff;
   color: inherit;
   border-radius: 1rem;
-  text-transform: uppercase;
   transition: border .2s linear;
+}
+
+button {
+  text-transform: uppercase
 }
 
 button:hover {

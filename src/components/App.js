@@ -50,7 +50,9 @@ const Pages = () => {
         <Route path='/auth' element={<Authentication />}></Route>
         {/*  */}
         <Route path='/' element={
-          <h1>Welcome</h1>
+          <div>
+            <h1>Welcome</h1>
+          </div>
         } />
         {
           routes.map(r => <Route

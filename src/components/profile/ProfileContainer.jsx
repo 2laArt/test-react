@@ -1,25 +1,34 @@
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   createNewPostActionCreator,
   updateInputPostActionCreator,
 } from "../../redux/reducers/postsReducer";
-import { setProfile } from "../../redux/reducers/userProfileReducer";
+import {
+  setProfile,
+  editModeSwitchActionCreator,
+  setUserStatus,
+} from "../../redux/reducers/userProfileReducer";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
 import { ProfilePage } from "./ProfilePage";
+import { useEffect } from "react";
 
 class ProfileWrapper extends React.Component {
   componentDidMount() {
-    const id = this.props.userId || this.props.myId;
-    this.props.setProfile(id);
+    console.log(this.props.userProfile);
+    this.props.setProfile(this.props.userId);
   }
+  editModeSwitch = (isEdit) => {
+    const param = { myId: this.props.myId, isEdit };
+    this.props.editModeSwitch(param);
+  };
   render() {
     return (
       this.props.userProfile.userData.fullName && (
-        <ProfilePage {...this.props} />
+        <ProfilePage {...this.props} editModeSwitch={this.editModeSwitch} />
       )
     );
   }
@@ -27,18 +36,25 @@ class ProfileWrapper extends React.Component {
 
 const ProfileLocationContainer = (props) => {
   const param = useParams();
-  return <ProfileWrapper {...props} {...param} />;
+  const navigate = useNavigate();
+  useEffect(() => {
+    !param?.userId && navigate(`/profile/${props.myId}`);
+  });
+  return param?.userId && <ProfileWrapper {...props} {...param} />;
 };
 
 const mapStateToProps = (state) => ({
   myId: state.auth.data.id,
+  editMode: state.userProfile.editMode,
   postData: state.postData,
   userProfile: state.userProfile,
 });
 const mapDispatchToProps = {
   handlerChange: updateInputPostActionCreator,
   sendPost: createNewPostActionCreator,
-  setProfile: setProfile,
+  editModeSwitch: editModeSwitchActionCreator,
+  setProfile,
+  setUserStatus,
 };
 
 export const ProfileContainer = compose(

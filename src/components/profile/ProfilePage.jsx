@@ -7,11 +7,19 @@ export const ProfilePage = ({
   userProfile,
   handlerChange,
   sendPost,
+  editMode,
+  editModeSwitch,
+  setUserStatus,
 }) => {
   return (
     <div className="profile">
       <div className="profile_data">
-        <UserProfile userProfile={userProfile} />
+        <UserProfile
+          editModeSwitch={editModeSwitch}
+          editMode={editMode}
+          userProfile={userProfile}
+          setUserStatus={setUserStatus}
+        />
         <CreatePost
           newPostText={postData.newPostText}
           handlerChange={handlerChange}
