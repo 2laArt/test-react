@@ -4,11 +4,8 @@ export class StatusBlock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: this.props.status ?? "",
+      status: this.props.status,
     };
-  }
-  componentDidMount() {
-    console.log(this.props.status);
   }
   changeStatus = (e) => {
     this.setState({ status: e.target.value });

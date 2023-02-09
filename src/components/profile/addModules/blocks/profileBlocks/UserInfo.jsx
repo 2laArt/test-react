@@ -10,6 +10,10 @@ export const UserInfo = ({ userProfile, editModeSwitch, setUserStatus }) => {
       name: "Job: ",
       text: userProfile.userData.lookingForAJobDescription,
     },
+    {
+      name: "About Me: ",
+      text: userProfile.userData.aboutMe,
+    },
   ];
   // {userData.aboutMe}
   return (
@@ -21,12 +25,15 @@ export const UserInfo = ({ userProfile, editModeSwitch, setUserStatus }) => {
           editModeSwitch={editModeSwitch}
           setUserStatus={setUserStatus}
         />
-        {items.map((item, i) => (
-          <div className="item" key={i}>
-            <span className="bold_color"> {item.name} </span>
-            {item.text}
-          </div>
-        ))}
+        {items.map(
+          (item, i) =>
+            item.text && (
+              <div className="item" key={i}>
+                <span className="bold_color"> {item.name} </span>
+                {item.text}
+              </div>
+            )
+        )}
       </div>
     </div>
   );

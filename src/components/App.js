@@ -30,12 +30,12 @@ function App({ isResponse }) {
     <div className="App" >
       <BrowserRouter>
         <HeaderContainer />
-        <div className="container">
-          {
-            isResponse ? <Pages /> :
-              <Preloader />
-          }
-        </div>
+
+        {
+          isResponse ?
+            <div className="container"> <Pages /> </div> :
+            <Preloader />
+        }
       </BrowserRouter>
 
     </div>

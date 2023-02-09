@@ -5,11 +5,13 @@ export const UserProfile = ({ userProfile, editModeSwitch, setUserStatus }) => {
   return (
     <div className="user_profile">
       <Intro introImg={userProfile.introImg} />
-      <ProfileInfo
-        userProfile={userProfile}
-        editModeSwitch={editModeSwitch}
-        setUserStatus={setUserStatus}
-      />
+      {userProfile.userData.fullName && (
+        <ProfileInfo
+          userProfile={userProfile}
+          editModeSwitch={editModeSwitch}
+          setUserStatus={setUserStatus}
+        />
+      )}
     </div>
   );
 };

@@ -30,7 +30,7 @@ const setUserDataActionCreator = (param) => ({
 	type: SET_PROFILE,
 	param
 })
-export const changeStatusActionCreator = (param) => ({
+const changeStatusActionCreator = (param) => ({
 	type: CHANGE_STATUS,
 	param
 })
@@ -44,15 +44,20 @@ export const setProfile = id =>
 			.getProfile(id)
 			.then((data) =>
 				dispatch(setUserDataActionCreator(data)));
-
+export const getUserStatus = id =>
+	dispatch =>
+		requests
+			.getStatus(id)
+			.then(data =>
+				dispatch(changeStatusActionCreator(data))
+			)
 export const setUserStatus = (status) =>
 	dispatch =>
 		requests
 			.changeStatus(status)
-			.then((data) => {
-				console.log(data)
-				return dispatch(changeStatusActionCreator(status))
-			})
+			.then((data) =>
+				dispatch(changeStatusActionCreator(status))
+			)
 			.catch(e => e)
 
 

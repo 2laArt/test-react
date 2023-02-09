@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { useNavigate, useParams } from "react-router-dom";
 import {
   createNewPostActionCreator,
   updateInputPostActionCreator,
@@ -10,16 +10,15 @@ import {
   setProfile,
   editModeSwitchActionCreator,
   setUserStatus,
+  getUserStatus,
 } from "../../redux/reducers/userProfileReducer";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-
 import { ProfilePage } from "./ProfilePage";
-import { useEffect } from "react";
 
 class ProfileWrapper extends React.Component {
   componentDidMount() {
-    // console.log(this.props.userProfile);
     this.props.setProfile(this.props.userId);
+    this.props.getUserStatus(this.props.userId);
   }
   editModeSwitch = (isEdit) => {
     const param = { myId: this.props.myId, isEdit };
@@ -54,6 +53,7 @@ const mapDispatchToProps = {
   editModeSwitch: editModeSwitchActionCreator,
   setProfile,
   setUserStatus,
+  getUserStatus,
 };
 
 export const ProfileContainer = compose(

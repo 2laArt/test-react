@@ -1,12 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-export const UserCard = ({
-  user,
-  changeFollow,
-  inProgress,
-  isAuth,
-  changeStatus,
-}) => {
+export const UserCard = ({ user, changeFollow, inProgress, isAuth }) => {
   const navigate = useNavigate();
   const defaultPhoto = {
     male: "https://i.livelib.ru/auface/320145/o/37dd/Oleg_Sidelnikov.jpg",
@@ -19,7 +13,6 @@ export const UserCard = ({
   };
   const disabled = () => inProgress.some((id) => id === user.id);
   const redirectToProfile = () => {
-    changeStatus(user.status);
     navigate(`/profile/${user.id}`);
   };
   return (
