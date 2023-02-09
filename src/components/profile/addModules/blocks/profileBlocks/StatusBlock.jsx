@@ -4,8 +4,11 @@ export class StatusBlock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: "",
+      status: this.props.status ?? "",
     };
+  }
+  componentDidMount() {
+    console.log(this.props.status);
   }
   changeStatus = (e) => {
     this.setState({ status: e.target.value });
@@ -15,7 +18,7 @@ export class StatusBlock extends React.Component {
     this.props.editModeSwitch(false);
   };
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div
         style={{ cursor: "pointer" }}

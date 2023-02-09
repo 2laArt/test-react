@@ -1,19 +1,14 @@
 import { StatusBlock } from "./StatusBlock";
 
-export const UserInfo = ({
-  editMode,
-  userData,
-  editModeSwitch,
-  setUserStatus,
-}) => {
+export const UserInfo = ({ userProfile, editModeSwitch, setUserStatus }) => {
   const items = [
     {
       name: "Name: ",
-      text: userData.fullName,
+      text: userProfile.userData.fullName,
     },
     {
       name: "Job: ",
-      text: userData.lookingForAJobDescription,
+      text: userProfile.userData.lookingForAJobDescription,
     },
   ];
   // {userData.aboutMe}
@@ -21,8 +16,8 @@ export const UserInfo = ({
     <div className="profile_info_wrapper">
       <div className="profile_info">
         <StatusBlock
-          status={userData.aboutMe}
-          editMode={editMode}
+          status={userProfile.status}
+          editMode={userProfile.editMode}
           editModeSwitch={editModeSwitch}
           setUserStatus={setUserStatus}
         />

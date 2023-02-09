@@ -44,3 +44,12 @@
 	font-size: 1.1rem;
 	padding: .5rem 1rem;
 }
+
+.redirect_profile {
+	transition: color .2s linear;
+}
+
+.redirect_profile:hover {
+	cursor: pointer;
+	color: #ccc;
+}

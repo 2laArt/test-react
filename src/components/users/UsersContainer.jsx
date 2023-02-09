@@ -5,6 +5,7 @@ import {
   changeFollow,
   setCurrentPageActionCreator,
 } from "../../redux/reducers/usersReducer";
+import { changeStatusActionCreator } from "../../redux/reducers/userProfileReducer";
 import { Users } from "./Users";
 
 class UserBu extends React.Component {
@@ -24,6 +25,7 @@ class UserBu extends React.Component {
         setCurrentPage={this.props.setCurrentPage}
         inProgress={this.props.inProgress}
         isAuth={this.props.isAuth}
+        changeStatus={this.props.changeStatus}
       />
     );
   }
@@ -41,6 +43,7 @@ const mapDispatchToProps = {
   getUsers,
   changeFollow,
   setCurrentPage: setCurrentPageActionCreator,
+  changeStatus: changeStatusActionCreator,
 };
 
 export const UsersContainer = connect(

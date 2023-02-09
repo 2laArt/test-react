@@ -1,6 +1,13 @@
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export const UserCard = ({ user, changeFollow, inProgress, isAuth }) => {
+export const UserCard = ({
+  user,
+  changeFollow,
+  inProgress,
+  isAuth,
+  changeStatus,
+}) => {
+  const navigate = useNavigate();
   const defaultPhoto = {
     male: "https://i.livelib.ru/auface/320145/o/37dd/Oleg_Sidelnikov.jpg",
     female:
@@ -11,10 +18,13 @@ export const UserCard = ({ user, changeFollow, inProgress, isAuth }) => {
     changeFollow(user.id);
   };
   const disabled = () => inProgress.some((id) => id === user.id);
-
+  const redirectToProfile = () => {
+    changeStatus(user.status);
+    navigate(`/profile/${user.id}`);
+  };
   return (
     <div className="user_card">
-      <NavLink to={`/profile/${user.id}`}>
+      <div className="redirect_profile" onClick={redirectToProfile}>
         <img
           className="card_avatar"
           src={user?.photos.small || defaultPhoto.male}
@@ -35,7 +45,7 @@ export const UserCard = ({ user, changeFollow, inProgress, isAuth }) => {
             {user.followed ? "remove" : "follow"}
           </button>
         )}
-      </NavLink>
+      </div>
     </div>
   );
 };

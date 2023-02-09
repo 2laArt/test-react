@@ -7,6 +7,7 @@ const CHANGE_STATUS = 'CHANGE-STATUS';
 const defaultState = {
 	introImg:
 		"https://w-dog.ru/wallpapers/2/19/422459918751823/prekrasnyj-zakaz-na-more-sredi-skal.jpg",
+	status: '',
 	userData: {},
 	editMode: false,
 }
@@ -19,20 +20,17 @@ const EditModeSwitch = (state, param) => ({
 	...state,
 	editMode: (state.userData.userId === param.myId) && param.isEdit
 })
+
 const changeStatus = (state, param) => ({
 	...state,
-	userData: {
-		...state.userData,
-		aboutMe: param
-	}
-
+	status: param ?? ''
 })
 
 const setUserDataActionCreator = (param) => ({
 	type: SET_PROFILE,
 	param
 })
-const changeStatusActionCreator = (param) => ({
+export const changeStatusActionCreator = (param) => ({
 	type: CHANGE_STATUS,
 	param
 })

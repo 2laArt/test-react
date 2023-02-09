@@ -23,6 +23,7 @@ export const Users = (props) => {
         {props.users.map((user) => (
           <UserCard
             isAuth={props.isAuth}
+            changeStatus={props.changeStatus}
             inProgress={props.inProgress}
             user={user}
             changeFollow={props.changeFollow}

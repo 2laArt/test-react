@@ -38,6 +38,10 @@ a {
   cursor: pointer;
 }
 
+a:hover {
+  color: #ccc;
+}
+
 textarea {
   display: block;
   width: 100%;
@@ -50,9 +54,6 @@ textarea {
   background: transparent;
 }
 
-a:hover {
-  color: #ccc;
-}
 
 
 .container {
@@ -72,10 +73,11 @@ input[type='text'] {
   color: inherit;
   border-radius: 1rem;
   transition: border .2s linear;
+  cursor: pointer;
 }
 
 button {
-  text-transform: uppercase
+  text-transform: uppercase;
 }
 
 button:hover {

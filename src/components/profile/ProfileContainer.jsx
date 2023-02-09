@@ -18,7 +18,7 @@ import { useEffect } from "react";
 
 class ProfileWrapper extends React.Component {
   componentDidMount() {
-    console.log(this.props.userProfile);
+    // console.log(this.props.userProfile);
     this.props.setProfile(this.props.userId);
   }
   editModeSwitch = (isEdit) => {
@@ -45,7 +45,6 @@ const ProfileLocationContainer = (props) => {
 
 const mapStateToProps = (state) => ({
   myId: state.auth.data.id,
-  editMode: state.userProfile.editMode,
   postData: state.postData,
   userProfile: state.userProfile,
 });

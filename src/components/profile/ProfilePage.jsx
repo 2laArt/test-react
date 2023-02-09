@@ -7,7 +7,6 @@ export const ProfilePage = ({
   userProfile,
   handlerChange,
   sendPost,
-  editMode,
   editModeSwitch,
   setUserStatus,
 }) => {
@@ -16,7 +15,6 @@ export const ProfilePage = ({
       <div className="profile_data">
         <UserProfile
           editModeSwitch={editModeSwitch}
-          editMode={editMode}
           userProfile={userProfile}
           setUserStatus={setUserStatus}
         />

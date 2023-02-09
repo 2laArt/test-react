@@ -1,19 +1,13 @@
 import { Intro } from "./blocks/Intro";
 import { ProfileInfo } from "./blocks/ProfileInfo";
 
-export const UserProfile = ({
-  editMode,
-  userProfile,
-  editModeSwitch,
-  setUserStatus,
-}) => {
+export const UserProfile = ({ userProfile, editModeSwitch, setUserStatus }) => {
   return (
     <div className="user_profile">
       <Intro introImg={userProfile.introImg} />
       <ProfileInfo
+        userProfile={userProfile}
         editModeSwitch={editModeSwitch}
-        editMode={editMode}
-        userData={userProfile.userData}
         setUserStatus={setUserStatus}
       />
     </div>
