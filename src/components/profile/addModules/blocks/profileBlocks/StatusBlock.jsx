@@ -1,4 +1,6 @@
 import React from "react";
+// import { ReactComponent as LoaderStatus } from "../../../../../assets/images/icons/loaderStatus.svg";
+import LoaderStatus from "../../../../../assets/images/icons/loaderStatus.gif";
 
 export class StatusBlock extends React.Component {
   constructor(props) {
@@ -11,15 +13,21 @@ export class StatusBlock extends React.Component {
     this.setState({ status: e.target.value });
   };
   setUserStatus = () => {
-    this.props.setUserStatus(this.state.status ?? "");
+    if (this.props.status !== this.state.status) {
+      this.props.loadStatusFalse();
+      this.props.setUserStatus(this.state.status ?? "");
+    }
     this.props.editModeSwitch(false);
   };
   render() {
-    // console.log(this.props);
+    console.log(this.props.isLoadStatus);
     return (
       <div
+        className="status_container"
         style={{ cursor: "pointer" }}
-        onDoubleClick={() => this.props.editModeSwitch(true)}
+        onDoubleClick={() =>
+          this.props.isLoadStatus && this.props.editModeSwitch(true)
+        }
       >
         <div className="item">
           <span className="bold_color"> Status: </span>
@@ -34,7 +42,16 @@ export class StatusBlock extends React.Component {
                 autoFocus={true}
               />
             ) : (
-              <span>{this.props.status} </span>
+              <span className="status_text">
+                {this.props.status}
+                {!this.props.isLoadStatus && (
+                  <img
+                    className="loader_status"
+                    src={LoaderStatus}
+                    alt="loader"
+                  />
+                )}
+              </span>
             )}
           </span>
         </div>

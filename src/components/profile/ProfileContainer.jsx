@@ -11,6 +11,7 @@ import {
   editModeSwitchActionCreator,
   setUserStatus,
   getUserStatus,
+  loadStatusActionCreator,
 } from "../../redux/reducers/userProfileReducer";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { ProfilePage } from "./ProfilePage";
@@ -51,6 +52,7 @@ const mapDispatchToProps = {
   handlerChange: updateInputPostActionCreator,
   sendPost: createNewPostActionCreator,
   editModeSwitch: editModeSwitchActionCreator,
+  loadStatusFalse: loadStatusActionCreator,
   setProfile,
   setUserStatus,
   getUserStatus,

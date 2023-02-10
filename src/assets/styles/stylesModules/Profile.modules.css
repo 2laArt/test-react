@@ -77,3 +77,13 @@
 .post_footer {
 	width: 100%;
 }
+
+.status_container {}
+
+.status_text {}
+
+.loader_status {
+	display: inline;
+	width: 2rem;
+	border-radius: 50%;
+}

@@ -8,28 +8,14 @@ const TOGGLE_IN_PROGRESS = 'TOGGLE-IN-PROGRESS';
 const defaultState = {
 	users: [],
 	totalCountUsers: 1,
-	pageUsersCount: 5,
+	pageUsersCount: 20,
 	currentPage: 1,
 	inProgress: [],
-	getUsersPage() {
-		return this.users.slice(
-			this.startedDot(), this.endDot()
-		)
-	},
-	startedDot() {
-		return (this.currentPage - 1) * this.pageUsersCount
-	},
-	endDot() {
-		const intendedEnd = (this.currentPage - 1) * this.pageUsersCount + this.pageUsersCount;
-		return intendedEnd >= this.users.length ?
-			this.users.length : intendedEnd;
-	},
 	getNumbersOfPages() {
-		const someVar = 2;
 		const start = 1;
-		const last = Math.floor(this.users.length / this.pageUsersCount);
+		const last = Math.ceil(this.totalCountUsers / this.pageUsersCount);
 		const current = this.currentPage;
-		const previous = this.currentPage > someVar ? current - 1 : undefined;
+		const previous = this.currentPage > 2 ? current - 1 : undefined;
 		const next = this.currentPage < last - 1 ? current + 1 : undefined;
 		return ([...new Set([
 			start,
@@ -57,14 +43,7 @@ const setFollowToState = (state, param) => {
 const setUsers = (state, param) => {
 	return {
 		...state,
-		users: [
-			...state.users,
-			...param.users.filter(i => {
-				return !state.users.some(k => {
-					return k.id === i.id
-				})
-			})
-		],
+		users: param.users,
 		totalCountUsers: param.totalCount,
 	}
 }
@@ -101,10 +80,10 @@ export const setCurrentPageActionCreator = (param) => ({
 	param
 })
 
-export const getUsers = () =>
+export const getUsers = (page) =>
 	dispatch =>
 		requests
-			.getUsers()
+			.getUsers(defaultState.pageUsersCount, page)
 			.then((response) =>
 				dispatch(setUsersActionCreator({
 					users: response.items,
@@ -116,7 +95,9 @@ export const changeFollow = (users, id) =>
 	dispatch => {
 		const user = users.filter((u) => u.id === id)[0].followed;
 		dispatch(toggleInProgressActionCreator(id));
-		const result = user ? requests.unFollowUser(id) : requests.followUser(id);
+		const result = user ?
+			requests.unFollowUser(id) :
+			requests.followUser(id);
 		result.then((resultCode) => {
 			if (!resultCode) {
 				dispatch(changeFollowActionCreator(id));

@@ -10,7 +10,7 @@ import { Users } from "./Users";
 
 class UserBu extends React.Component {
   componentDidMount() {
-    this.props.getUsers();
+    this.props.getUsers(this.props.currentPage);
   }
   changeFollow = (id) => {
     this.props.changeFollow(this.props.users, id);
@@ -25,13 +25,14 @@ class UserBu extends React.Component {
         setCurrentPage={this.props.setCurrentPage}
         inProgress={this.props.inProgress}
         isAuth={this.props.isAuth}
+        getUsers={this.props.getUsers}
       />
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  users: state.usersData.getUsersPage(),
+  users: state.usersData.users,
   numberOfPage: state.usersData.getNumbersOfPages(),
   currentPage: state.usersData.currentPage,
   inProgress: state.usersData.inProgress,

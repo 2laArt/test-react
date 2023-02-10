@@ -1,6 +1,11 @@
 import { StatusBlock } from "./StatusBlock";
 
-export const UserInfo = ({ userProfile, editModeSwitch, setUserStatus }) => {
+export const UserInfo = ({
+  userProfile,
+  editModeSwitch,
+  setUserStatus,
+  loadStatusFalse,
+}) => {
   const items = [
     {
       name: "Name: ",
@@ -24,6 +29,8 @@ export const UserInfo = ({ userProfile, editModeSwitch, setUserStatus }) => {
           editMode={userProfile.editMode}
           editModeSwitch={editModeSwitch}
           setUserStatus={setUserStatus}
+          loadStatusFalse={loadStatusFalse}
+          isLoadStatus={userProfile.isLoadStatus}
         />
         {items.map(
           (item, i) =>

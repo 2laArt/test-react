@@ -9,6 +9,7 @@ export const ProfilePage = ({
   sendPost,
   editModeSwitch,
   setUserStatus,
+  loadStatusFalse,
 }) => {
   return (
     <div className="profile">
@@ -17,6 +18,7 @@ export const ProfilePage = ({
           editModeSwitch={editModeSwitch}
           userProfile={userProfile}
           setUserStatus={setUserStatus}
+          loadStatusFalse={loadStatusFalse}
         />
         <CreatePost
           newPostText={postData.newPostText}
