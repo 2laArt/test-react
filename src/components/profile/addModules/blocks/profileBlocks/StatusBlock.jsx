@@ -1,6 +1,5 @@
 import React from "react";
-// import { ReactComponent as LoaderStatus } from "../../../../../assets/images/icons/loaderStatus.svg";
-import LoaderStatus from "../../../../../assets/images/icons/loaderStatus.gif";
+import { ReactComponent as LoaderStatus } from "../../../../../assets/images/icons/loaderStatus.svg";
 
 export class StatusBlock extends React.Component {
   constructor(props) {
@@ -20,7 +19,6 @@ export class StatusBlock extends React.Component {
     this.props.editModeSwitch(false);
   };
   render() {
-    console.log(this.props.isLoadStatus);
     return (
       <div
         className="status_container"
@@ -44,13 +42,7 @@ export class StatusBlock extends React.Component {
             ) : (
               <span className="status_text">
                 {this.props.status}
-                {!this.props.isLoadStatus && (
-                  <img
-                    className="loader_status"
-                    src={LoaderStatus}
-                    alt="loader"
-                  />
-                )}
+                {!this.props.isLoadStatus && <LoaderStatus />}
               </span>
             )}
           </span>
