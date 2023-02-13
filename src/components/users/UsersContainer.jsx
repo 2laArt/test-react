@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   getUsers,
   changeFollow,
@@ -8,9 +9,9 @@ import {
 
 import { Users } from "./Users";
 
-class UserBu extends React.Component {
+class UsersFromAPI extends React.Component {
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage);
+    this.props.setCurrentPage(+this.props.userPageId);
   }
   changeFollow = (id) => {
     this.props.changeFollow(this.props.users, id);
@@ -30,6 +31,27 @@ class UserBu extends React.Component {
     );
   }
 }
+const CurrentPageToPath = (props) => {
+  const navigate = useNavigate();
+  const params = useParams();
+  const userPageId = localStorage.getItem("userPageId");
+  const setCurrentPage = (page) => {
+    localStorage.setItem("userPageId", page);
+    props.setCurrentPage(page);
+    props.getUsers(page);
+  };
+  useEffect(() => {
+    if (+params.page === +userPageId) return;
+    navigate(`/users/${userPageId}`);
+  });
+  return (
+    <UsersFromAPI
+      {...props}
+      setCurrentPage={setCurrentPage}
+      userPageId={userPageId}
+    />
+  );
+};
 
 const mapStateToProps = (state) => ({
   users: state.usersData.users,
@@ -48,4 +70,4 @@ const mapDispatchToProps = {
 export const UsersContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserBu);
+)(CurrentPageToPath);

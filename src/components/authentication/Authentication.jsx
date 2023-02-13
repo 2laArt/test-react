@@ -1,13 +1,30 @@
-export const Authentication = () => {
+import { useState } from "react";
+import { connect } from "react-redux";
+import { userSignIn } from "../../redux/reducers/authReducer";
+import { SignIn } from "./SIgnIn";
+import { SignUp } from "./SignUp";
+
+const Authentication = ({ userSignIn }) => {
+  const [switcher, setSwitcher] = useState(true);
   return (
     <div>
-      <form className="auth_form">
-        <input className="auth_input" type="text" placeholder="Login" />
-        <input className="auth_input" type="text" placeholder="Email" />
-        <input className="auth_input" type="text" placeholder="Password" />
-        <button>sing up</button>
-      </form>
+      {switcher ? (
+        <button onClick={() => setSwitcher(false)}>Sing Up</button>
+      ) : (
+        <button onClick={() => setSwitcher(true)}>Sing In</button>
+      )}
+      {switcher ? <SignIn userSignIn={userSignIn} /> : <SignUp />}
     </div>
   );
 };
+
+const mapStateToProps = (state) => ({});
+const mapDispatchToProps = {
+  userSignIn,
+};
+
+export const AuthContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Authentication);
 //sign ( in / up )

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { ProfileContainer } from '../components/profile/ProfileContainer';
 import { UsersContainer } from './users/UsersContainer';
 import { DialogsContainer } from "../components/messages/DialogsContainer";
-import { Authentication } from './authentication/Authentication';
+import { AuthContainer } from './authentication/Authentication';
 import { HeaderContainer } from './header/HeaderContainer';
 import { Preloader } from './repeating/preloader/Preloader';
 
@@ -21,7 +21,7 @@ const routes = [
     element: DialogsContainer
   },
   {
-    path: '/users',
+    path: '/users/:page?',
     element: UsersContainer
   }
 ]
@@ -47,7 +47,7 @@ const Pages = () => {
     <>
       <Routes basename={`${process.env.PUBLIC_URL}`}>
         {/*  */}
-        <Route path='/auth' element={<Authentication />}></Route>
+        <Route path='/auth' element={<AuthContainer />}></Route>
         {/*  */}
         <Route path='/' element={
           <div>

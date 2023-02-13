@@ -7,7 +7,7 @@ const LOAD_STATUS = 'LOAD-STATUS';
 
 const defaultState = {
 	introImg:
-		"https://w-dog.ru/wallpapers/2/19/422459918751823/prekrasnyj-zakaz-na-more-sredi-skal.jpg",
+		"https://about-planet.ru/images/evropa/priroda/sredizemnoe_more/otdyx_sredizemnoe_more.jpeg",
 	status: '',
 	userData: {},
 	editMode: false,

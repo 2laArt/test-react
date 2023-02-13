@@ -3,7 +3,7 @@ import NavBar from "./addModules/NavBar";
 import "../../assets/styles/addStyles/Header.css";
 import { NavLink } from "react-router-dom";
 import { AuthNav } from "./addModules/AuthNav";
-const Header = ({ isAuth, login }) => {
+const Header = ({ isAuth, login, userSignOut }) => {
   return (
     <header className="header">
       <div className="container">
@@ -16,7 +16,7 @@ const Header = ({ isAuth, login }) => {
               LOGO
             </NavLink>
           </div>
-          <AuthNav isAuth={isAuth} login={login} />
+          <AuthNav userSignOut={userSignOut} isAuth={isAuth} login={login} />
           {isAuth && <NavBar />}
         </div>
       </div>

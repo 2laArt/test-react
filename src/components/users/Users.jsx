@@ -1,12 +1,10 @@
 import "../../assets/styles/addStyles/UsersCard.css";
 import React from "react";
-
 import { UserCard } from "./addBlock/UserCard";
 
 export const Users = (props) => {
   const setCurrentPage = (page) => {
     props.setCurrentPage(page);
-    props.getUsers(page);
   };
   return (
     <div className="users">

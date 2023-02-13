@@ -25,4 +25,5 @@ export const requests = {
 	...authentication,
 	...changeStatus,
 	...getStatus,
+
 }

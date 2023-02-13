@@ -8,6 +8,7 @@ export const UserCard = ({ user, changeFollow, inProgress, isAuth }) => {
       "https://soloists-academy.com.ua/wp-content/uploads/2020/12/377-3778780_helper4u-maid-bai-cook-chef-empty-profile-picture.jpg",
   };
   const addFriend = (e) => {
+    e.stopPropagation();
     e.preventDefault();
     changeFollow(user.id);
   };

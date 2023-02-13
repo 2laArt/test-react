@@ -1,9 +1,15 @@
 import { NavLink } from "react-router-dom";
-export const AuthNav = ({ isAuth, login }) => {
+import exitIcon from "../../../assets/images/icons/exit.png";
+export const AuthNav = ({ isAuth, login, userSignOut }) => {
   return (
     <>
       {isAuth ? (
-        login
+        <span>
+          {login}
+          <button className="exit_button" onClick={userSignOut}>
+            <img src={exitIcon} alt="exit" />
+          </button>
+        </span>
       ) : (
         <div className="login">
           <NavLink to="/auth">login</NavLink>
