@@ -1,6 +1,5 @@
 const SHOW_DIALOG = 'SHOW-DIALOG';
 const SEND_MESSAGE = 'SEND-MESSAGE';
-const NEW_VALUE_OF_MESSAGE = 'NEW-VALUE-OF-MESSAGE';
 
 const defaultState = {
 	messages: [
@@ -81,14 +80,14 @@ const defaultState = {
 		return this.messages[this.selectedDialogIndex] || []
 	},
 	selectedDialogIndex: undefined,
-	newMessage: '',
 }
 
 const showDialog = (state, param) => {
 	return { ...state, selectedDialogIndex: --param };
 }
 
-const sendMessage = (state) => {
+const sendMessage = (state, param) => {
+	console.log(param)
 	return {
 		...state,
 		messages: state.messages.map((msg, i) =>
@@ -97,26 +96,20 @@ const sendMessage = (state) => {
 					...msg,
 					{
 						id: 1,
-						text: state.newMessage
+						text: param
 					}
 				] :
 				msg
 		),
-		newMessage: '',
 	}
-}
-const updateMessageValue = (state, param) => {
-	return { ...state, newMessage: param }
 }
 
 export const dialogsReducer = (state = defaultState, action) => {
 	switch (action.type) {
 		case SHOW_DIALOG:
 			return showDialog(state, action.param);
-		case NEW_VALUE_OF_MESSAGE:
-			return updateMessageValue(state, action.param);
 		case SEND_MESSAGE:
-			return sendMessage(state);
+			return sendMessage(state, action.param);
 		default:
 			return state;
 	}
@@ -126,10 +119,7 @@ export const showDialogActionCreator = (param) => ({
 	type: SHOW_DIALOG,
 	param
 })
-export const sendMessageActionCreator = () => ({
+export const sendMessageActionCreator = (param) => ({
 	type: SEND_MESSAGE,
-})
-export const newValueOfMessageActionCreator = (param) => ({
-	type: NEW_VALUE_OF_MESSAGE,
 	param
 })

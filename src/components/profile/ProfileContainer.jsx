@@ -2,10 +2,7 @@ import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import {
-  createNewPostActionCreator,
-  updateInputPostActionCreator,
-} from "../../redux/reducers/postsReducer";
+import { createNewPostActionCreator } from "../../redux/reducers/postsReducer";
 import {
   setProfile,
   editModeSwitchActionCreator,
@@ -49,7 +46,6 @@ const mapStateToProps = (state) => ({
   userProfile: state.userProfile,
 });
 const mapDispatchToProps = {
-  handlerChange: updateInputPostActionCreator,
   sendPost: createNewPostActionCreator,
   editModeSwitch: editModeSwitchActionCreator,
   loadStatusFalse: loadStatusActionCreator,

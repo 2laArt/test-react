@@ -1,4 +1,3 @@
-const UPDATE_INPUT_POST = 'UPDATE-INPUT-POST';
 const CREATE_NEW_POST = 'CREATE-NEW-POST';
 
 
@@ -19,11 +18,10 @@ const defaultState = {
 			likes: 550,
 		},
 	],
-	newPostText: '',
 }
 
-const createNewPost = (state) => {
-	const content = state.newPostText.split(/\n/g);
+const createNewPost = (state, param) => {
+	const content = param.split(/\n/g);
 	const title = content[0];
 	const text = content.slice(1).join(' ');
 	const post = {
@@ -42,26 +40,17 @@ const createNewPost = (state) => {
 		newPostText: '',
 	}
 }
-const updateInputPost = (state, value) => {
-	return {
-		...state,
-		newPostText: value
-	}
-}
+
 export const postsReducer = (state = defaultState, action) => {
 	switch (action.type) {
 		case CREATE_NEW_POST:
-			return createNewPost(state);
-		case UPDATE_INPUT_POST:
-			return updateInputPost(state, action.param);
+			return createNewPost(state, action.param);
 		default:
 			return state;
 	}
 }
-export const updateInputPostActionCreator = (param) => ({
-	type: UPDATE_INPUT_POST,
-	param
-})
-export const createNewPostActionCreator = () => ({
+
+export const createNewPostActionCreator = (param) => ({
 	type: CREATE_NEW_POST,
+	param
 })

@@ -5,9 +5,7 @@ import { CreateMessage } from "./blocks/CreateMessage";
 export const Dialogs = ({
   dialogs,
   selectedDialog,
-  messageValue,
   chooseDialog,
-  chooseMessageValue,
   sendMessage,
 }) => {
   return (
@@ -19,11 +17,7 @@ export const Dialogs = ({
         }}
       >
         <Messages selectedDialog={selectedDialog}>
-          <CreateMessage
-            messageValue={messageValue}
-            chooseMessageValue={chooseMessageValue}
-            sendMessage={sendMessage}
-          />
+          <CreateMessage sendMessage={sendMessage} />
         </Messages>
       </div>
     </div>
