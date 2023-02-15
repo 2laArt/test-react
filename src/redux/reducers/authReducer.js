@@ -1,4 +1,5 @@
 import { requests } from "../../api/requestAPI";
+import { stopSubmit } from "redux-form";
 
 const SET_AUTH = 'SET_AUTH';
 const SET_IS_RESPONSE = 'SET-IS-RESPONSE';
@@ -48,12 +49,18 @@ export const authUser = () =>
 
 export const userSignIn = (param) =>
 	dispatch => {
-		dispatch(setIsResponseActionCreator(false))
+		// dispatch(setIsResponseActionCreator(false))
 		requests
-			.signIn(param)
+			.signIn({ ...param, captcha: false })
 			.then((response) => {
-				dispatch(setIsResponseActionCreator(true))
-				if (response.resultCode) return;
+				// dispatch(setIsResponseActionCreator(true))
+				if (response.resultCode) {
+					const message = response.messages.length ?
+						response.messages.join(', ') :
+						'Some Error';
+					dispatch(stopSubmit('signIn', { _error: message }))
+					return;
+				}
 				dispatch(setAuthDataActionCreator(response.data))
 				dispatch(authUser())
 			})
