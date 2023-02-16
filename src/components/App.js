@@ -30,7 +30,6 @@ function App({ isResponse }) {
     <div className="App" >
       <BrowserRouter>
         <HeaderContainer />
-
         {
           isResponse ?
             <div className="container"> <Pages /> </div> :
