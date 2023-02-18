@@ -53,6 +53,7 @@ export const setProfile = id =>
 			.getProfile(id)
 			.then((data) =>
 				dispatch(setUserDataActionCreator(data)));
+
 export const getUserStatus = id =>
 	dispatch =>
 		requests

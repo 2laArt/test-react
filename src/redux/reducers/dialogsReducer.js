@@ -87,7 +87,6 @@ const showDialog = (state, param) => {
 }
 
 const sendMessage = (state, param) => {
-	console.log(param)
 	return {
 		...state,
 		messages: state.messages.map((msg, i) =>

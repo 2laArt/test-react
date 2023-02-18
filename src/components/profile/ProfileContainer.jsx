@@ -13,30 +13,28 @@ import {
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { ProfilePage } from "./ProfilePage";
 
-class ProfileWrapper extends React.Component {
-  componentDidMount() {
-    this.props.setProfile(this.props.userId);
-    this.props.getUserStatus(this.props.userId);
-  }
-  editModeSwitch = (isEdit) => {
-    const param = { myId: this.props.myId, isEdit };
-    this.props.editModeSwitch(param);
+const ProfileWrapper = (props) => {
+  const editModeSwitch = (isEdit) => {
+    const param = { myId: props.myId, isEdit };
+    props.editModeSwitch(param);
   };
-  render() {
-    return (
-      this.props.userProfile.userData.fullName && (
-        <ProfilePage {...this.props} editModeSwitch={this.editModeSwitch} />
-      )
-    );
-  }
-}
+  useEffect(() => {
+    props.setProfile(props.userId);
+    props.getUserStatus(props.userId);
+  }, [props.userId]);
+  return (
+    props.userProfile.userData.fullName && (
+      <ProfilePage {...props} editModeSwitch={editModeSwitch} />
+    )
+  );
+};
 
 const ProfileLocationContainer = (props) => {
   const param = useParams();
   const navigate = useNavigate();
   useEffect(() => {
-    !param?.userId && navigate(`/profile/${props.myId}`);
-  });
+    !param.userId && navigate(`/profile/${props.myId}`);
+  }, [param.userId, props.myId, navigate]);
   return param?.userId && <ProfileWrapper {...props} {...param} />;
 };
 

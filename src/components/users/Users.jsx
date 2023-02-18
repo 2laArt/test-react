@@ -4,7 +4,7 @@ import { UserCard } from "./addBlock/UserCard";
 
 export const Users = (props) => {
   const setCurrentPage = (page) => {
-    props.setCurrentPage(page);
+    props.currentPage !== page && props.setCurrentPage(page);
   };
   return (
     <div className="users">
@@ -35,21 +35,3 @@ export const Users = (props) => {
     </div>
   );
 };
-
-// export class Users extends React.Component {
-//   constructor({ users, addNewFriend, setUsers }) {
-//     super({ users, addNewFriend, setUsers });
-//   }
-//   render() {
-//     return (
-//       <article>
-//         <h3>USERS</h3>
-//         <UserSection
-//           users={this.users}
-//           addNewFriend={this.addNewFriend}
-//           setUsers={this.setUsers}
-//         />
-//       </article>
-//     );
-//   }
-// }

@@ -19,18 +19,21 @@ const defaultState = {
 		},
 	],
 }
-
-const createNewPost = (state, param) => {
-	const content = param.split(/\n/g);
+const createNewPost = (text, id) => {
+	const content = text.split(/\n/g);
 	const title = content[0];
-	const text = content.slice(1).join(' ');
-	const post = {
-		id: state.posts.length + 1,
+	const sub = content.slice(1).join(' ');
+	return {
+		id: id,
 		title: title,
-		text: text,
+		text: sub,
 		img: "https://avatars.mds.yandex.net/i?id=16140a7d34dfbc85644112803e4463ac_sr-7012335-images-thumbs&n=13",
 		likes: 0,
 	};
+}
+const addNewPost = (state, param) => {
+	const id = state.posts.length + 1;
+	const post = createNewPost(param, id);
 	return {
 		...state,
 		posts: [
@@ -44,7 +47,7 @@ const createNewPost = (state, param) => {
 export const postsReducer = (state = defaultState, action) => {
 	switch (action.type) {
 		case CREATE_NEW_POST:
-			return createNewPost(state, action.param);
+			return addNewPost(state, action.param);
 		default:
 			return state;
 	}

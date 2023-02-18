@@ -1,53 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { ReactComponent as LoaderStatus } from "../../../../../assets/images/icons/loaderStatus.svg";
 
-export class StatusBlock extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      status: this.props.status,
-    };
-  }
-  changeStatus = (e) => {
-    this.setState({ status: e.target.value });
+export const StatusBlock = (props) => {
+  const [status, setStatus] = useState(props.status);
+  const changeStatus = (e) => {
+    setStatus(e.target.value);
   };
-  setUserStatus = () => {
-    if (this.props.status !== this.state.status) {
-      this.props.loadStatusFalse();
-      this.props.setUserStatus(this.state.status ?? "");
+  const setUserStatus = () => {
+    if (props.status !== status) {
+      props.loadStatusFalse();
+      props.setUserStatus(status ?? "");
     }
-    this.props.editModeSwitch(false);
+    props.editModeSwitch(false);
   };
-  render() {
-    return (
-      <div
-        className="status_container"
-        style={{ cursor: "pointer" }}
-        onDoubleClick={() =>
-          this.props.isLoadStatus && this.props.editModeSwitch(true)
-        }
-      >
-        <div className="item">
-          <span className="bold_color"> Status: </span>
+  return (
+    <div
+      className="status_container"
+      style={{ cursor: "pointer" }}
+      onDoubleClick={() => props.isLoadStatus && props.editModeSwitch(true)}
+    >
+      <div className="item">
+        <span className="bold_color"> Status: </span>
 
-          <span>
-            {this.props.editMode ? (
-              <input
-                type="text"
-                value={this.state.status}
-                onChange={this.changeStatus}
-                onBlur={this.setUserStatus}
-                autoFocus={true}
-              />
-            ) : (
-              <span className="status_text">
-                {this.props.status}
-                {!this.props.isLoadStatus && <LoaderStatus />}
-              </span>
-            )}
-          </span>
-        </div>
+        <span>
+          {props.editMode ? (
+            <input
+              type="text"
+              value={status}
+              onChange={changeStatus}
+              onBlur={setUserStatus}
+              autoFocus={true}
+            />
+          ) : (
+            <span className="status_text">
+              {props.status}
+              {!props.isLoadStatus && <LoaderStatus />}
+            </span>
+          )}
+        </span>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};

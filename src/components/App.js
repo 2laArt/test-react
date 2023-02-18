@@ -9,6 +9,7 @@ import { DialogsContainer } from "../components/messages/DialogsContainer";
 import { AuthContainer } from './authentication/Authentication';
 import { HeaderContainer } from './header/HeaderContainer';
 import { Preloader } from './repeating/preloader/Preloader';
+import { WelcomeContainer } from './Welcome/WelcomeContainer';
 
 
 const routes = [
@@ -48,11 +49,7 @@ const Pages = () => {
         {/*  */}
         <Route path='/auth' element={<AuthContainer />}></Route>
         {/*  */}
-        <Route path='/' element={
-          <div>
-            <h1>Welcome</h1>
-          </div>
-        } />
+        <Route path='/' element={<WelcomeContainer />} />
         {
           routes.map(r => <Route
             path={r.path}

@@ -6,6 +6,7 @@ import {
   changeFollow,
   setCurrentPageActionCreator,
 } from "../../redux/reducers/usersReducer";
+import { selectors } from "../../redux/selectors/selectors";
 
 import { Users } from "./Users";
 
@@ -54,11 +55,11 @@ const CurrentPageToPath = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  users: state.usersData.users,
-  numberOfPage: state.usersData.getNumbersOfPages(),
-  currentPage: state.usersData.currentPage,
-  inProgress: state.usersData.inProgress,
-  isAuth: state.auth.isAuth,
+  users: selectors.users(state),
+  numberOfPage: selectors.pageNumbers(state),
+  currentPage: selectors.currentPage(state),
+  inProgress: selectors.inProgress(state),
+  isAuth: selectors.isAuth(state),
 });
 const mapDispatchToProps = {
   //cb(v)=>dispatch(ac(v))

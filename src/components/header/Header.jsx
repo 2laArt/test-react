@@ -1,8 +1,9 @@
 // import SearchBar from "./addModules/SearchBar";
-import NavBar from "./addModules/NavBar";
-import "../../assets/styles/addStyles/Header.css";
 import { NavLink } from "react-router-dom";
+import "../../assets/styles/addStyles/Header.css";
+import NavBar from "./addModules/NavBar";
 import { AuthNav } from "./addModules/AuthNav";
+
 const Header = ({ isAuth, login, userSignOut }) => {
   return (
     <header className="header">
@@ -17,7 +18,7 @@ const Header = ({ isAuth, login, userSignOut }) => {
             </NavLink>
           </div>
           <AuthNav userSignOut={userSignOut} isAuth={isAuth} login={login} />
-          {isAuth && <NavBar />}
+          {<span>{isAuth}</span> && <NavBar />}
         </div>
       </div>
     </header>

@@ -5,7 +5,7 @@ export const AuthNav = ({ isAuth, login, userSignOut }) => {
     <>
       {isAuth ? (
         <span>
-          {login}
+          <NavLink to="/profile">{login}</NavLink>
           <button className="exit_button" onClick={userSignOut}>
             <img src={exitIcon} alt="exit" />
           </button>
