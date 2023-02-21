@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { createNewPostActionCreator } from "../../redux/reducers/postsReducer";
+import { addNewPostActionCreator } from "../../redux/reducers/postsReducer";
 import {
   setProfile,
   editModeSwitchActionCreator,
@@ -21,7 +21,7 @@ const ProfileWrapper = (props) => {
   useEffect(() => {
     props.setProfile(props.userId);
     props.getUserStatus(props.userId);
-  }, [props.userId]);
+  }, []);
   return (
     props.userProfile.userData.fullName && (
       <ProfilePage {...props} editModeSwitch={editModeSwitch} />
@@ -44,7 +44,7 @@ const mapStateToProps = (state) => ({
   userProfile: state.userProfile,
 });
 const mapDispatchToProps = {
-  sendPost: createNewPostActionCreator,
+  sendPost: addNewPostActionCreator,
   editModeSwitch: editModeSwitchActionCreator,
   loadStatusFalse: loadStatusActionCreator,
   setProfile,

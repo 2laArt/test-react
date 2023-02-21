@@ -4,8 +4,14 @@ export const AuthNav = ({ isAuth, login, userSignOut }) => {
   return (
     <>
       {isAuth ? (
-        <span>
-          <NavLink to="/profile">{login}</NavLink>
+        <span style={{ display: "flex" }}>
+          <NavLink to="/profile">
+            <img
+              src="https://i.livelib.ru/auface/320145/o/37dd/Oleg_Sidelnikov.jpg"
+              alt="header_avatar"
+              className="header_avatar"
+            />
+          </NavLink>
           <button className="exit_button" onClick={userSignOut}>
             <img src={exitIcon} alt="exit" />
           </button>

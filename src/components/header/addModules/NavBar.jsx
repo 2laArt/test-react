@@ -7,10 +7,12 @@ const NavBar = () => {
         return (
           <NavLink
             to={`/${p}`}
-            className={(c) => (c.isActive ? "active_custom" : "")}
+            className={(c) =>
+              c.isActive ? "active_custom nav_item" : "nav_item"
+            }
             key={i}
           >
-            {p.toUpperCase()}
+            <span>{p.toUpperCase()} </span>
           </NavLink>
         );
       })}

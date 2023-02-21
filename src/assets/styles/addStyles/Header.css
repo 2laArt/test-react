@@ -1,6 +1,7 @@
 .header {
 	width: 100%;
-	background-color: #e44d3a;
+	/* background-color: #e44d3a; */
+	border-bottom: 1px solid #15171b;
 }
 
 .header_data {
@@ -10,13 +11,9 @@
 	align-items: center;
 }
 
-.nav_bar a {
-	margin-right: 1rem;
-
-}
-
-.active_custom {
-	color: gold;
+.header_avatar {
+	width: 2rem;
+	border-radius: 50%;
 }
 
 .exit_button {
@@ -28,4 +25,78 @@
 
 .exit_button:hover {
 	border: 0;
+}
+
+.nav_item {
+	margin-right: .5rem;
+}
+
+.nav_item span {
+	position: relative;
+	padding: .5rem 1rem;
+}
+
+
+
+
+@media (min-width: 500px) {
+
+	.nav_item span:after,
+	.nav_item span::before {
+		position: absolute;
+		content: "";
+		display: block;
+		opacity: 0;
+		transition: all .3s linear;
+	}
+
+	.nav_item span::before {
+		border-right: 1px solid #fff;
+		border-bottom: 1px solid #fff;
+		right: 100%;
+		bottom: 100%;
+		top: 0;
+		left: 0;
+	}
+
+	.nav_item span:hover::before {
+		opacity: 1;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+
+	.nav_item span::after {
+		border-top: 1px solid #fff;
+		border-left: 1px solid #fff;
+		left: 100%;
+		top: 100%;
+		right: 0;
+		bottom: 0;
+	}
+
+	.nav_item span:hover::after {
+		opacity: 1;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+
+	.active_custom span::after {
+		opacity: 1;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+
+	.active_custom span::before {
+		opacity: 1;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
 }

@@ -1,4 +1,4 @@
-export const Input = ({ input, placeholder, meta }) => {
+export const Input = ({ input, placeholder, meta: { active, error } }) => {
   return (
     <span className="input_container">
       <input
@@ -7,9 +7,7 @@ export const Input = ({ input, placeholder, meta }) => {
         type="text"
         placeholder={placeholder}
       />{" "}
-      {meta.active && meta.error && (
-        <span className="popup_error">{meta.error}</span>
-      )}
+      {active && error && <span className="popup_error">{error}</span>}
     </span>
   );
 };

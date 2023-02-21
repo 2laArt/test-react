@@ -1,4 +1,4 @@
-const CREATE_NEW_POST = 'CREATE-NEW-POST';
+const ADD_NEW_POST = 'CREATE-NEW-POST';
 
 
 const defaultState = {
@@ -46,14 +46,14 @@ const addNewPost = (state, param) => {
 
 export const postsReducer = (state = defaultState, action) => {
 	switch (action.type) {
-		case CREATE_NEW_POST:
+		case ADD_NEW_POST:
 			return addNewPost(state, action.param);
 		default:
 			return state;
 	}
 }
 
-export const createNewPostActionCreator = (param) => ({
-	type: CREATE_NEW_POST,
+export const addNewPostActionCreator = (param) => ({
+	type: ADD_NEW_POST,
 	param
 })

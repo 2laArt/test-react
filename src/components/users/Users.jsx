@@ -1,5 +1,4 @@
 import "../../assets/styles/addStyles/UsersCard.css";
-import React from "react";
 import { UserCard } from "./addBlock/UserCard";
 
 export const Users = (props) => {
@@ -21,6 +20,7 @@ export const Users = (props) => {
           </button>
         ))}
       </div>
+
       <div className="users_section">
         {props.users.map((user) => (
           <UserCard

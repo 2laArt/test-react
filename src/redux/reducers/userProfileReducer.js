@@ -47,30 +47,18 @@ export const editModeSwitchActionCreator = (param) => ({
 	type: EDIT_MODE,
 	param
 })
-export const setProfile = id =>
-	dispatch =>
-		requests
-			.getProfile(id)
-			.then((data) =>
-				dispatch(setUserDataActionCreator(data)));
-
-export const getUserStatus = id =>
-	dispatch =>
-		requests
-			.getStatus(id)
-			.then(data =>
-				dispatch(changeStatusActionCreator(data))
-			)
-export const setUserStatus = (status) =>
-	dispatch =>
-		requests
-			.changeStatus(status)
-			.then((data) =>
-				!data.resultCode &&
-				dispatch(changeStatusActionCreator(status))
-			)
-			.catch(e => e)
-
+export const setProfile = id => async dispatch => {
+	const response = await requests.getProfile(id);
+	dispatch(setUserDataActionCreator(response));
+}
+export const getUserStatus = id => async dispatch => {
+	const response = await requests.getStatus(id);
+	dispatch(changeStatusActionCreator(response))
+}
+export const setUserStatus = (status) => async dispatch => {
+	const response = await requests.changeStatus(status);
+	!response.resultCode && dispatch(changeStatusActionCreator(status));
+}
 
 export const userProfileReducer = (state = defaultState, action) => {
 	switch (action.type) {

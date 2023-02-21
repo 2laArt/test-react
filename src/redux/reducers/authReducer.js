@@ -34,49 +34,34 @@ const setIsResponseActionCreator = (param) => ({
 	param
 })
 
-export const authUser = () =>
-	dispatch =>
-		requests
-			.auth()
-			.then((response) => {
-				setTimeout(() => dispatch(setIsResponseActionCreator(true)), 200)
-				if (response.resultCode) {
-					window.history.pushState(null, "", "/auth");
-					return;
-				}
-				dispatch(setAuthDataActionCreator(response.data));
-			})
-
-export const userSignIn = (param) =>
-	dispatch => {
-		// dispatch(setIsResponseActionCreator(false))
-		requests
-			.signIn({ ...param, captcha: false })
-			.then((response) => {
-				// dispatch(setIsResponseActionCreator(true))
-				if (response.resultCode) {
-					const message = response.messages.length ?
-						response.messages.join(', ') :
-						'Some Error';
-					dispatch(stopSubmit('signIn', { _error: message }))
-					return;
-				}
-				dispatch(setAuthDataActionCreator(response.data))
-				dispatch(authUser())
-			})
+export const authUser = () => async dispatch => {
+	const response = await requests.auth();
+	dispatch(setIsResponseActionCreator(true));
+	if (response.resultCode) {
+		window.history.pushState(null, "", "/auth");
+		return;
 	}
+	dispatch(setAuthDataActionCreator(response.data));
+}
+export const userSignIn = (param) => async dispatch => {
+	const response = await requests.signIn({ ...param });
+	if (response.resultCode) {
+		const message = response.messages.length ?
+			response.messages.join(', ') :
+			'Some Error';
+		return dispatch(stopSubmit('signIn', { _error: message }))
+	}
+	dispatch(setAuthDataActionCreator(response.data))
+	dispatch(authUser())
 
-export const userSignOut = (param) =>
-	dispatch =>
-		requests
-			.signOut(param)
-			.then((response) => {
-				if (response.resultCode) {
-					console.log(response)
-					return;
-				};
-				dispatch(setAuthDataActionCreator(response.data));
-			})
+}
+
+export const userSignOut = param => async dispatch => {
+	const response = await requests.signOut(param);
+	if (!response.resultCode) {
+		return dispatch(setAuthDataActionCreator(response.data));
+	};
+}
 
 export const authReducer = (state = defaultState, action) => {
 	switch (action.type) {

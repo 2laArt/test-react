@@ -1,4 +1,4 @@
-import imgPreloader from "../../../assets/images/icons/preloader.gif";
+import { Loader } from "./Loader";
 export const Preloader = () => {
   return (
     <div
@@ -14,7 +14,7 @@ export const Preloader = () => {
         alignItems: "center",
       }}
     >
-      <img src={imgPreloader} alt="preloader" style={{ width: "30vmin" }} />
+      <Loader size="30vmin" />
     </div>
   );
 };

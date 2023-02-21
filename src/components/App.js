@@ -2,30 +2,12 @@ import React from 'react';
 import '../assets/styles/App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { routes } from '../router/router';
 
-import { ProfileContainer } from '../components/profile/ProfileContainer';
-import { UsersContainer } from './users/UsersContainer';
-import { DialogsContainer } from "../components/messages/DialogsContainer";
-import { AuthContainer } from './authentication/Authentication';
 import { HeaderContainer } from './header/HeaderContainer';
 import { Preloader } from './repeating/preloader/Preloader';
-import { WelcomeContainer } from './Welcome/WelcomeContainer';
 
 
-const routes = [
-  {
-    path: '/profile/:userId?',
-    element: ProfileContainer
-  },
-  {
-    path: '/dialogs/:userId?',
-    element: DialogsContainer
-  },
-  {
-    path: '/users/:page?',
-    element: UsersContainer
-  }
-]
 function App({ isResponse }) {
   return (
     <div className="App" >
@@ -41,30 +23,20 @@ function App({ isResponse }) {
     </div>
   )
 }
-const Pages = () => {
+const Pages = () => (
+  <>
+    <Routes basename={`${process.env.PUBLIC_URL}`}>
+      {
+        routes.map(router => <Route
+          path={router.path}
+          element={<router.element />}
+          key={router.path} />)
+      }
+    </Routes>
+  </>
+)
 
-  return (
-    <>
-      <Routes basename={`${process.env.PUBLIC_URL}`}>
-        {/*  */}
-        <Route path='/auth' element={<AuthContainer />}></Route>
-        {/*  */}
-        <Route path='/' element={<WelcomeContainer />} />
-        {
-          routes.map(r => <Route
-            path={r.path}
-            element={<r.element />}
-            key={r.path} />)
-        }
-      </Routes>
-
-    </>
-  )
-}
 const AppContainer = connect((state) => ({ isResponse: state.auth.isResponse }))(App)
 
 export default AppContainer;
 
-// {[...router].map(i => <Route path={i.path} element={i.element} key={i.path} />)}
-
-/* <RouterProvider router={router} /> */

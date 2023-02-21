@@ -27,32 +27,24 @@ const defaultState = {
 	},
 }
 
-const setFollowToState = (state, param) => {
-	return {
-		...state,
-		users: state.users.map(
-			user => (user.id === param) ?
-				{
-					...user,
-					followed: !user.followed
-				} :
-				user
-		)
-	}
-};
-const setUsers = (state, param) => {
-	return {
-		...state,
-		users: param.users,
-		totalCountUsers: param.totalCount,
-	}
-}
-const setCurrentPage = (state, param) => {
-	return {
-		...state,
-		currentPage: param,
-	}
-}
+const setFollowToState = (state, param) => ({
+	...state,
+	users: state.users.map(
+		user => (user.id === param) ?
+			{ ...user, followed: !user.followed } :
+			user
+	)
+})
+
+const setUsers = (state, param) => ({
+	...state,
+	users: param.users,
+	totalCountUsers: param.totalCount,
+})
+const setCurrentPage = (state, param) => ({
+	...state,
+	currentPage: param,
+})
 const toggleInProgress = (state, param) => {
 	const isHave = state.inProgress.some(id => id === param);
 	return {
@@ -80,31 +72,24 @@ export const setCurrentPageActionCreator = (param) => ({
 	param
 })
 
-export const getUsers = (page) =>
-	dispatch =>
-		requests
-			.getUsers(defaultState.pageUsersCount, page)
-			.then((response) =>
-				dispatch(setUsersActionCreator({
-					users: response.items,
-					totalCount: response.totalCount,
-				}))
-			);
-
-export const changeFollow = (users, id) =>
-	dispatch => {
-		const user = users.filter((u) => u.id === id)[0].followed;
+export const getUsers = (page) => async dispatch => {
+	const response = await requests.getUsers(defaultState.pageUsersCount, page);
+	dispatch(setUsersActionCreator({
+		users: response.items,
+		totalCount: response.totalCount,
+	}))
+}
+export const changeFollow = (users, id) => async dispatch => {
+	const user = users.filter((u) => u.id === id)[0].followed;
+	dispatch(toggleInProgressActionCreator(id));
+	const result = await user ?
+		requests.unFollowUser(id) :
+		requests.followUser(id);
+	if (!result.resultCode) {
+		dispatch(changeFollowActionCreator(id));
 		dispatch(toggleInProgressActionCreator(id));
-		const result = user ?
-			requests.unFollowUser(id) :
-			requests.followUser(id);
-		result.then((resultCode) => {
-			if (!resultCode) {
-				dispatch(changeFollowActionCreator(id));
-				dispatch(toggleInProgressActionCreator(id));
-			}
-		});
 	}
+}
 
 export const usersReducer = (state = defaultState, action) => {
 	switch (action.type) {

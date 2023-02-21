@@ -17,8 +17,13 @@ export const UserCard = ({ user, changeFollow, inProgress, isAuth }) => {
     navigate(`/profile/${user.id}`);
   };
   return (
-    <div className="user_card">
-      <div className="redirect_profile" onClick={redirectToProfile}>
+    <div
+      className="user_card"
+      onClick={() => {
+        console.log("ggg");
+      }}
+    >
+      <div className="user_card_bg" onClick={redirectToProfile}>
         <img
           className="card_avatar"
           src={user?.photos.small || defaultPhoto.male}
@@ -28,17 +33,17 @@ export const UserCard = ({ user, changeFollow, inProgress, isAuth }) => {
           <div>{user.id}</div>
           <div className="card_name">{user.name}</div>
           <div className="card_welcome">{user.status}</div>
-        </div>
 
-        {isAuth && !disabled() && (
-          <button
-            className="user_button"
-            style={{ color: user.followed && "rgb(255, 169, 169)" }}
-            onClick={addFriend}
-          >
-            {user.followed ? "remove" : "follow"}
-          </button>
-        )}
+          {isAuth && !disabled() && (
+            <button
+              className="user_button"
+              style={{ color: user.followed && "rgb(255, 169, 169)" }}
+              onClick={addFriend}
+            >
+              {user.followed ? "remove" : "follow"}
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

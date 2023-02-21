@@ -1,9 +1,4 @@
-export const Textarea = ({
-  input,
-  placeholder,
-  meta: { touched, error, warning },
-}) => {
-  //   const isError = touched && error;
+export const Textarea = ({ input, placeholder, meta: { error } }) => {
   return (
     <div className="textarea_container">
       <textarea

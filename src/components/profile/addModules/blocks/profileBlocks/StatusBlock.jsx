@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ReactComponent as LoaderStatus } from "../../../../../assets/images/icons/loaderStatus.svg";
+import { Loader } from "../../../../repeating/preloader/Loader";
 
 export const StatusBlock = (props) => {
   const [status, setStatus] = useState(props.status);
@@ -17,10 +17,11 @@ export const StatusBlock = (props) => {
     <div
       className="status_container"
       style={{ cursor: "pointer" }}
+      data-testid="status"
       onDoubleClick={() => props.isLoadStatus && props.editModeSwitch(true)}
     >
       <div className="item">
-        <span className="bold_color"> Status: </span>
+        <span className="bold_color">Status: </span>
 
         <span>
           {props.editMode ? (
@@ -32,9 +33,11 @@ export const StatusBlock = (props) => {
               autoFocus={true}
             />
           ) : (
-            <span className="status_text">
+            <span className="status_text" data-testid="statusText">
               {props.status}
-              {!props.isLoadStatus && <LoaderStatus />}
+              {!props.isLoadStatus && (
+                <Loader size="15px" style={{ marginLeft: "1rem;" }} />
+              )}
             </span>
           )}
         </span>

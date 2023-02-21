@@ -17,8 +17,8 @@ const Header = ({ isAuth, login, userSignOut }) => {
               LOGO
             </NavLink>
           </div>
-          <AuthNav userSignOut={userSignOut} isAuth={isAuth} login={login} />
           {<span>{isAuth}</span> && <NavBar />}
+          <AuthNav userSignOut={userSignOut} isAuth={isAuth} login={login} />
         </div>
       </div>
     </header>

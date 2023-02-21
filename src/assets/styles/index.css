@@ -19,6 +19,28 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #282c34;
+
+}
+
+body::-webkit-scrollbar {
+  width: 12px;
+  /* ширина scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: #16181d;
+  /* цвет дорожки */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #4e535d;
+  ;
+  /* цвет плашки */
+  border-radius: 20px;
+  /* закругления плашки */
+  border: 1px solid #282c34;
+  /* padding вокруг плашки */
 }
 
 .user_created {

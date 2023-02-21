@@ -1,3 +1,5 @@
+import { addById } from "../../utilities/mapping/mapping";
+
 const SHOW_DIALOG = 'SHOW-DIALOG';
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
@@ -77,7 +79,7 @@ const defaultState = {
 		},
 	],
 	getSelectedDialog() {
-		return this.messages[this.selectedDialogIndex] || []
+		return this.messages[this.selectedDialogIndex] || [];
 	},
 	selectedDialogIndex: undefined,
 }
@@ -89,17 +91,11 @@ const showDialog = (state, param) => {
 const sendMessage = (state, param) => {
 	return {
 		...state,
-		messages: state.messages.map((msg, i) =>
-			(i === state.selectedDialogIndex) ?
-				[
-					...msg,
-					{
-						id: 1,
-						text: param
-					}
-				] :
-				msg
-		),
+		messages: addById(
+			state.messages,
+			state.selectedDialogIndex,
+			{ id: 1, text: param }
+		)
 	}
 }
 
