@@ -1,4 +1,5 @@
 import { Navigate } from "react-router-dom";
+import { PATHS } from "../router/paths"
 import { connect } from "react-redux";
 
 
@@ -9,7 +10,7 @@ const mapStateToProps = (state) => ({
 export const withAuthRedirect = (Component) => {
 	const layout = (props) => props.isAuth ?
 		<Component {...props} /> :
-		<Navigate to="/auth" />
+		<Navigate to={PATHS.AUTH} />
 
 	return connect(mapStateToProps)(layout)
 }

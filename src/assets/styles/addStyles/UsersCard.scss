@@ -1,0 +1,172 @@
+.users {
+	padding: var(--pd-y-2);
+}
+
+.users_section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	margin-top: 3rem;
+}
+
+.pagination button {
+	font-size: 1.2rem;
+	padding: .5rem 1rem;
+}
+
+.user_card {
+	width: 33%;
+	max-width: 20rem;
+	min-width: 18rem;
+	position: relative;
+	padding: 3rem;
+	padding-bottom: 0;
+	background: $bg-post;
+	margin: 1rem;
+	transition: all .2s linear;
+}
+
+.user_card_bg {
+	transition: color .2s linear;
+	text-align: center;
+}
+
+
+.card_avatar {
+	width: 10rem;
+	display: inline-block;
+	height: auto;
+	border-radius: 50%;
+}
+
+
+.card_container {
+	transition: all .2s linear;
+	width: 100%;
+	font-size: 1.4rem;
+}
+
+.active_user {
+	padding: 2rem;
+	padding-bottom: 0;
+}
+
+
+.user_button {
+	background: $red;
+	border: 0;
+	border-radius: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.active_user .user_button {
+	padding: .5rem 1rem;
+}
+
+.active_user .user_card_btns {
+	height: 3.5rem;
+	margin: $mg-y-2;
+	font-size: inherit;
+}
+
+.user_card_btns {
+	height: 0;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	margin: 0;
+	transition: all .2s linear;
+}
+
+.icon_msg {
+	width: 5rem;
+	height: inherit;
+	background: $red;
+	padding: .4rem 1rem;
+}
+
+
+.icon_msg svg {
+	margin-top: -.1rem;
+
+	transition: all .2s linear;
+}
+
+.icon_msg path {
+	fill: $white;
+}
+
+.icon_msg:hover path {
+	fill: $gray;
+}
+
+
+.user_card_btn {
+	color: inherit;
+	height: inherit;
+	transition: color .2s linear;
+
+	&:hover {
+		color: $gray;
+	}
+}
+
+.btn_view_profile {
+	display: block;
+	width: 100%;
+	color: inherit;
+	border-top: $border-1 $gray;
+	padding: $pd-y-1;
+	transition: color .2s linear;
+
+	&:hover {
+		color: $gray;
+	}
+}
+
+
+.user_add_info {
+	transition: all .2s linear;
+	margin-top: 2rem;
+}
+
+.heightZero {
+
+
+	animation: hide .3s linear forwards;
+
+	svg {
+		height: 0;
+	}
+}
+
+.card_welcome {
+	transition: all .2s linear;
+
+}
+
+
+
+@keyframes hide {
+	from {}
+
+	to {
+		overflow: hidden;
+		height: 0;
+		font-size: 0;
+		padding: 0;
+		opacity: 0;
+
+	}
+}
+
+
+
+
+@media (max-width: 600px) {
+	.user_card {
+		/* display: none; */
+	}
+}

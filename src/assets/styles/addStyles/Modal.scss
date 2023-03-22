@@ -1,0 +1,18 @@
+.modal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: #000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	z-index: $z100;
+}
+
+.modal_container {}
+
+.modal_title {}

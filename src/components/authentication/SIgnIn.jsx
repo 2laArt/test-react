@@ -12,19 +12,21 @@ const inputMaxLength = maxLength(20);
 const SingInForm = (props) => {
   const { handleSubmit } = props;
   return (
-    <form className="auth_form" onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
       <Field
         component={Input}
         name="email"
         type="text"
-        placeholder="email"
+        placeholder={"email"}
+        autoFocus={true}
         validate={[emailMinLength, emailValidator, inputMaxLength]}
       />
       <Field
         component={Input}
         name="password"
-        type="text"
-        placeholder="Password"
+        type="password"
+        placeholder={"password"}
+        autoComplete="on"
         validate={[passwordMinLength, passwordValidator, inputMaxLength]}
       />
       <div>
@@ -40,7 +42,7 @@ const SingInForm = (props) => {
         </label>
       </div>
       {props.error && <div className="form_error">{props.error}</div>}
-      <button>sing in</button>
+      <button className="button">sing in</button>
     </form>
   );
 };

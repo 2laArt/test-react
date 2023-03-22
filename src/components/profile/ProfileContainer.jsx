@@ -5,7 +5,6 @@ import { compose } from "redux";
 import { addNewPostActionCreator } from "../../redux/reducers/postsReducer";
 import {
   setProfile,
-  editModeSwitchActionCreator,
   setUserStatus,
   getUserStatus,
   loadStatusActionCreator,
@@ -14,26 +13,20 @@ import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { ProfilePage } from "./ProfilePage";
 
 const ProfileWrapper = (props) => {
-  const editModeSwitch = (isEdit) => {
-    const param = { myId: props.myId, isEdit };
-    props.editModeSwitch(param);
-  };
   useEffect(() => {
-    props.setProfile(props.userId);
+    props.setProfile({ userId: props.userId, myId: props.myId });
     props.getUserStatus(props.userId);
-  }, []);
-  return (
-    props.userProfile.userData.fullName && (
-      <ProfilePage {...props} editModeSwitch={editModeSwitch} />
-    )
-  );
+  }, [props.userId]);
+  return props.userProfile.userData.fullName && <ProfilePage {...props} />;
 };
 
 const ProfileLocationContainer = (props) => {
   const param = useParams();
   const navigate = useNavigate();
   useEffect(() => {
-    !param.userId && navigate(`/profile/${props.myId}`);
+    if (!param.userId) {
+      navigate(`/profile/${props.myId}`);
+    }
   }, [param.userId, props.myId, navigate]);
   return param?.userId && <ProfileWrapper {...props} {...param} />;
 };
@@ -45,7 +38,6 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = {
   sendPost: addNewPostActionCreator,
-  editModeSwitch: editModeSwitchActionCreator,
   loadStatusFalse: loadStatusActionCreator,
   setProfile,
   setUserStatus,
@@ -56,21 +48,3 @@ export const ProfileContainer = compose(
   connect(mapStateToProps, mapDispatchToProps),
   withAuthRedirect
 )(ProfileLocationContainer);
-
-//   const handlerChange = (text) => {
-//     dispatch(updateInputPostActionCreator(text));
-//   };
-// export const ProfileContainer1 = ({ postData, userProfile, dispatch }) => {
-//   const sendPost = () => {
-//     dispatch(createNewPostActionCreator());
-//   };
-
-//   return (
-//     <Profile
-//       postData={postData}
-//       userProfile={userProfile}
-//       handlerChange={handlerChange}
-//       sendPost={sendPost}
-//     />
-//   );
-// };

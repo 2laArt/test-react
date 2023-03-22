@@ -4,7 +4,7 @@ export const Message = ({ message }) => {
       className="message_box user_created"
       style={{ textAlign: message.id === 1 ? "right" : "left" }}
     >
-      <div className="message">{message.text}</div>
+      <div className="message card_section">{message.text}</div>
     </div>
   );
 };

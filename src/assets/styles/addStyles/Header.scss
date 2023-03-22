@@ -1,0 +1,110 @@
+.header {
+	width: 100%;
+	border-bottom: 1px solid #15171b;
+}
+
+.header_data {
+	height: 6rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.header_avatar {
+	width: 2.6rem;
+	border-radius: 50%;
+}
+
+.exit_button {
+	background: transparent;
+	border: 0;
+	margin: 0;
+	padding: 0 0 0 1rem;
+}
+
+.exit_button:hover {
+	border: 0;
+}
+
+.nav_item {
+	margin-right: .5rem;
+
+	span {
+		position: relative;
+		padding: .5rem 1rem;
+	}
+}
+
+
+
+@media (min-width: 500px) {
+
+	.nav_item {
+
+		span {
+			&:hover::before {
+				opacity: 1;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+			}
+
+
+			&::after,
+			&::before {
+				position: absolute;
+				content: "";
+				display: block;
+				opacity: 0;
+				transition: all .3s linear;
+			}
+
+			&::before {
+				border-right: $border-1 $white;
+				border-bottom: $border-1 $white;
+				right: 100%;
+				bottom: 100%;
+				top: 0;
+				left: 0;
+			}
+
+			&::after {
+				border-top: $border-1 $white;
+				border-left: $border-1 $white;
+				top: 100%;
+				right: 0;
+				bottom: 0;
+			}
+
+			&:hover::after {
+				opacity: 1;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+			}
+		}
+
+	}
+
+	.active_custom {
+		span {
+			&::after {
+				opacity: 1;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+			}
+
+			&::before {
+				opacity: 1;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+			}
+		}
+	}
+}

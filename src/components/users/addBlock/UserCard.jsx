@@ -1,48 +1,63 @@
 import { useNavigate } from "react-router-dom";
+import { camera } from "../../../assets/paths/paths";
+import { UserCardAddInfo } from "./UserCardAddInfo";
+// import { ReactComponent as MessageIcon } from "../../../assets/images/icons/message.svg";
 
-export const UserCard = ({ user, changeFollow, inProgress, isAuth }) => {
+export const UserCard = ({
+  user,
+  changeFollow,
+  inProgress,
+  isAuth,
+  activeId,
+  setActiveId,
+}) => {
   const navigate = useNavigate();
-  const defaultPhoto = {
-    male: "https://i.livelib.ru/auface/320145/o/37dd/Oleg_Sidelnikov.jpg",
-    female:
-      "https://soloists-academy.com.ua/wp-content/uploads/2020/12/377-3778780_helper4u-maid-bai-cook-chef-empty-profile-picture.jpg",
-  };
   const addFriend = (e) => {
     e.stopPropagation();
-    e.preventDefault();
+    // e.preventDefault();
     changeFollow(user.id);
   };
+  const writeMsg = (id) => console.log(id);
   const disabled = () => inProgress.some((id) => id === user.id);
   const redirectToProfile = () => {
     navigate(`/profile/${user.id}`);
   };
   return (
     <div
-      className="user_card"
-      onClick={() => {
-        console.log("ggg");
-      }}
+      className={
+        activeId === user.id
+          ? " card_section active_user user_card"
+          : "card_section user_card"
+      }
+      onClick={() => setActiveId(user.id)}
     >
-      <div className="user_card_bg" onClick={redirectToProfile}>
+      <div className="user_card_bg">
         <img
           className="card_avatar"
-          src={user?.photos.small || defaultPhoto.male}
+          src={user?.photos.small || camera}
           alt="avatar"
         />
         <div className="card_container">
           <div>{user.id}</div>
           <div className="card_name">{user.name}</div>
-          <div className="card_welcome">{user.status}</div>
 
-          {isAuth && !disabled() && (
-            <button
-              className="user_button"
-              style={{ color: user.followed && "rgb(255, 169, 169)" }}
-              onClick={addFriend}
-            >
-              {user.followed ? "remove" : "follow"}
-            </button>
-          )}
+          <UserCardAddInfo
+            activeId={activeId}
+            status={user.status}
+            followed={user.followed}
+            isAuth={isAuth}
+            disabled={disabled}
+            addFriend={addFriend}
+            writeMsg={writeMsg}
+            userId={user.id}
+          />
+
+          <button
+            className="btn_clear btn_view_profile"
+            onClick={redirectToProfile}
+          >
+            View Profile
+          </button>
         </div>
       </div>
     </div>

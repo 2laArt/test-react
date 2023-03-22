@@ -1,13 +1,23 @@
-export const Input = ({ input, placeholder, meta: { active, error } }) => {
+export const Input = ({
+  input,
+  placeholder,
+  type,
+  autoComplete,
+  meta: { active, error },
+}) => {
   return (
-    <span className="input_container">
+    <div className="input_container">
       <input
         {...input}
-        className="input_custom"
-        type="text"
-        placeholder={placeholder}
-      />{" "}
+        type={type}
+        autoComplete={autoComplete}
+        className={
+          input.value ? "input input_custom value_true" : "input input_custom "
+        }
+      />
+      <span className="bar"></span>
+      <label>{placeholder}</label>
       {active && error && <span className="popup_error">{error}</span>}
-    </span>
+    </div>
   );
 };

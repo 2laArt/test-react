@@ -1,31 +1,38 @@
 import { AuthContainer } from "../components/authentication/Authentication";
 import { DialogsContainer } from "../components/messages/DialogsContainer";
+import { EditProfileContainer } from "../components/profile/EditProfile/EditProfileContainer";
 import { ProfileContainer } from "../components/profile/ProfileContainer";
 import { UsersContainer } from "../components/users/UsersContainer";
 import { WelcomeContainer } from "../components/Welcome/WelcomeContainer";
+import { PATHS } from "./paths";
 
 
 
 export const routes = [
 	{
-		path: '/profile/:userId?',
+		path: `${PATHS.PROFILE}/:userId?`,
 		element: ProfileContainer
 	},
 	{
-		path: '/dialogs/:userId?',
+		path: `${PATHS.DIALOGS}/:userId?`,
 		element: DialogsContainer
 	},
 	{
-		path: '/users/:page?',
+		path: `${PATHS.USERS}/:pageId?`,
 		element: UsersContainer
 	},
 	{
-		path: '/auth',
+		path: PATHS.AUTH,
 		element: AuthContainer
 	},
 	{
-		path: '/',
+		path: PATHS.HOME,
 		element: WelcomeContainer
 	},
+	{
+		path: `${PATHS.ACCOUNT_SETTING}/:page?`,
+		element: EditProfileContainer
+	},
+
 ]
 

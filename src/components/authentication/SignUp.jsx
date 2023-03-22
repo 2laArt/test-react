@@ -1,27 +1,29 @@
 import { Field, reduxForm } from "redux-form";
+import { Input } from "../repeating/formBlock/Input";
 const SingUpForm = ({ handleSubmit }) => {
   return (
-    <form className="auth_form" onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
       <Field
-        className="auth_input"
-        component="input"
+        className=" input auth_input"
+        component={Input}
         name="name"
+        placeholder={"name"}
         type="text"
-        placeholder="Login"
       />
       <Field
-        className="auth_input"
-        component="input"
+        className=" input auth_input"
+        component={Input}
         name="email"
+        placeholder={"email"}
         type="text"
-        placeholder="email"
       />
       <Field
-        className="auth_input"
-        component="input"
+        className=" input auth_input"
+        component={Input}
         name="password"
-        type="text"
-        placeholder="Password"
+        placeholder={"password"}
+        autoComplete="on"
+        type="password"
       />
 
       <div>

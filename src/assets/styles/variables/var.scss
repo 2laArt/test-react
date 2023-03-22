@@ -1,0 +1,41 @@
+	/* $bg: #4f4f4f; */
+	// $bg-color: #424242;
+	$root-color: #282c34;
+	$muted-color: mix(white, $root-color, 70%);
+	$bg: #212641;
+	$light: #f8f9fa;
+	$gray: #ccc;
+	$btn-bg: rgba(0, 0, 0, 0.5);
+	$white: #fff;
+	$bg-post: rgba(0, 0, 0, .1);
+	$red: #e44d3a;
+	$red-error: rgb(255, 77, 45);
+	/*color*/
+	$shadow: 0 0 .5rem .1rem rgba(0, 0, 0, .2);
+
+	$border-1: 1px solid;
+	$pd-x-1: 0 1rem;
+	$pd-x-2: 0 2rem;
+	$pd-y-1: 1rem 0;
+	$pd-y-2: 2rem 0;
+	$pd-1: 1rem;
+	$mg-y-1: 1rem 0;
+	$mg-x-1: 0 1rem;
+	$mg-y-2: 2rem 0;
+	$mg-x-2: 0 2rem;
+
+	$z1: 1;
+	$z100: 100;
+
+	/* $root-color: #151515; */
+	$root-bg: radial-gradient(circle farthest-corner at 30%,
+			rgba(1, 74, 71, 0.8) .01rem,
+
+			var(--root-color) 20rem);
+
+	/* #1f2b27 */
+	@mixin breakpoint($bp) {
+		@media (max-width: $bp) {
+			@content;
+		}
+	}

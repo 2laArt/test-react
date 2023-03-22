@@ -1,7 +1,11 @@
-import "../../assets/styles/addStyles/UsersCard.css";
+import { useState } from "react";
 import { UserCard } from "./addBlock/UserCard";
 
 export const Users = (props) => {
+  const [activeId, setActiveId] = useState(undefined);
+  const toggleActiveId = (id) => {
+    activeId === id ? setActiveId(undefined) : setActiveId(id);
+  };
   const setCurrentPage = (page) => {
     props.currentPage !== page && props.setCurrentPage(page);
   };
@@ -10,6 +14,7 @@ export const Users = (props) => {
       <div className="pagination">
         {props.numberOfPage.map((page) => (
           <button
+            className="button"
             style={{
               color: props.currentPage === page ? " red" : "inherit",
             }}
@@ -25,6 +30,8 @@ export const Users = (props) => {
         {props.users.map((user) => (
           <UserCard
             isAuth={props.isAuth}
+            activeId={activeId}
+            setActiveId={toggleActiveId}
             inProgress={props.inProgress}
             user={user}
             changeFollow={props.changeFollow}

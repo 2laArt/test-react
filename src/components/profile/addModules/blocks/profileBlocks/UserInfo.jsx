@@ -1,11 +1,6 @@
 import { StatusBlock } from "./StatusBlock";
 
-export const UserInfo = ({
-  userProfile,
-  editModeSwitch,
-  setUserStatus,
-  loadStatusFalse,
-}) => {
+export const UserInfo = ({ userProfile, setUserStatus, loadStatusFalse }) => {
   const items = [
     {
       name: "Name: ",
@@ -24,14 +19,15 @@ export const UserInfo = ({
   return (
     <div className="profile_info_wrapper">
       <div className="profile_info">
-        <StatusBlock
-          status={userProfile.status}
-          editMode={userProfile.editMode}
-          editModeSwitch={editModeSwitch}
-          setUserStatus={setUserStatus}
-          loadStatusFalse={loadStatusFalse}
-          isLoadStatus={userProfile.isLoadStatus}
-        />
+        {userProfile.status && (
+          <StatusBlock
+            status={userProfile.status}
+            editMode={userProfile.editMode}
+            setUserStatus={setUserStatus}
+            loadStatusFalse={loadStatusFalse}
+            isLoadStatus={userProfile.isLoadStatus}
+          />
+        )}
         {items.map(
           (item, i) =>
             item.text && (

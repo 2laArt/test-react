@@ -1,13 +1,11 @@
 import { requests } from "../../api/requestAPI";
-
+import introImg from '../../assets/images/pictures/introProfile.jpg'
 const SET_PROFILE = 'SET-PROFILE';
-const EDIT_MODE = 'EDIT-MODE';
 const CHANGE_STATUS = 'CHANGE-STATUS';
 const LOAD_STATUS = 'LOAD-STATUS';
 
 const defaultState = {
-	introImg:
-		"https://about-planet.ru/images/evropa/priroda/sredizemnoe_more/otdyx_sredizemnoe_more.jpeg",
+	introImg,
 	status: '',
 	userData: {},
 	editMode: false,
@@ -16,13 +14,8 @@ const defaultState = {
 
 const setUserData = (state, param) => ({
 	...state,
-	userData: param,
+	...param,
 })
-const EditModeSwitch = (state, param) => ({
-	...state,
-	editMode: (state.userData.userId === param.myId) && param.isEdit
-})
-
 const changeStatus = (state, param) => ({
 	...state,
 	status: param ?? '',
@@ -43,16 +36,15 @@ const changeStatusActionCreator = (param) => ({
 export const loadStatusActionCreator = () => ({
 	type: LOAD_STATUS,
 })
-export const editModeSwitchActionCreator = (param) => ({
-	type: EDIT_MODE,
-	param
-})
-export const setProfile = id => async dispatch => {
-	const response = await requests.getProfile(id);
-	dispatch(setUserDataActionCreator(response));
+
+export const setProfile = param => async dispatch => {
+	const response = await requests.getProfile(param.userId);
+	if (response.resultCode) return;
+	dispatch(setUserDataActionCreator({ userData: response, editMode: response.userId === param.myId }));
 }
 export const getUserStatus = id => async dispatch => {
 	const response = await requests.getStatus(id);
+	if (!response || response.resultCode) return;
 	dispatch(changeStatusActionCreator(response))
 }
 export const setUserStatus = (status) => async dispatch => {
@@ -60,12 +52,17 @@ export const setUserStatus = (status) => async dispatch => {
 	!response.resultCode && dispatch(changeStatusActionCreator(status));
 }
 
+export const changeProfileInfo = (data) => async dispatch => {
+	const result = await requests.changeProfileInfo(data);
+	if (result.resultCode) return false;
+	return true;
+}
+
+
 export const userProfileReducer = (state = defaultState, action) => {
 	switch (action.type) {
 		case SET_PROFILE:
 			return setUserData(state, action.param);
-		case EDIT_MODE:
-			return EditModeSwitch(state, action.param);
 		case CHANGE_STATUS:
 			return changeStatus(state, action.param);
 		case LOAD_STATUS:

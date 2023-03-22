@@ -1,0 +1,46 @@
+.user_created {
+	overflow-wrap: anywhere;
+}
+
+
+.avatar_min {
+	display: inline-block;
+	width: 5rem;
+	height: 5rem;
+	min-width: 5rem;
+	border-radius: 50%;
+	background-color: rgba(0, 0, 0, .5);
+	text-align: center;
+	line-height: 5rem;
+	border-radius: 50%;
+	overflow: hidden;
+	margin-right: 1rem;
+}
+
+.card_section {
+	background: $bg-post;
+	box-shadow: $shadow;
+}
+
+
+.bold_color {
+	font-weight: bold;
+}
+
+.form {
+	width: 100%;
+	max-width: 30rem;
+	margin: 0 auto;
+}
+
+.form_mrg_none {
+	margin: 0;
+}
+
+.auth_input {
+	width: 100%;
+}
+
+.title_3 {
+	padding: 2rem 0;
+}

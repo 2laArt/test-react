@@ -1,6 +1,6 @@
 const Post = ({ postData }) => {
   return (
-    <section className="post profile_section">
+    <section className="post profile_section card_section">
       <div className="avatar_min">
         <img src={postData.img} alt="min avatar" />
       </div>

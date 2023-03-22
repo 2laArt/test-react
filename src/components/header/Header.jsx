@@ -1,8 +1,8 @@
 // import SearchBar from "./addModules/SearchBar";
 import { NavLink } from "react-router-dom";
-import "../../assets/styles/addStyles/Header.css";
 import NavBar from "./addModules/NavBar";
 import { AuthNav } from "./addModules/AuthNav";
+import { PATHS } from "../../router/paths";
 
 const Header = ({ isAuth, login, userSignOut }) => {
   return (
@@ -11,7 +11,7 @@ const Header = ({ isAuth, login, userSignOut }) => {
         <div className="header_data">
           <div className="logo">
             <NavLink
-              to="/"
+              to={PATHS.HOME}
               className={(c) => (c.isActive ? "active_custom" : "")}
             >
               LOGO

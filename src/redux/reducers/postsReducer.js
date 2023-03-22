@@ -1,3 +1,5 @@
+import { avatar } from "../../assets/paths/paths";
+
 const ADD_NEW_POST = 'CREATE-NEW-POST';
 
 
@@ -27,7 +29,7 @@ const createNewPost = (text, id) => {
 		id: id,
 		title: title,
 		text: sub,
-		img: "https://avatars.mds.yandex.net/i?id=16140a7d34dfbc85644112803e4463ac_sr-7012335-images-thumbs&n=13",
+		img: avatar,
 		likes: 0,
 	};
 }

@@ -1,11 +1,11 @@
 import React from 'react';
-import '../assets/styles/App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { routes } from '../router/router';
 
 import { HeaderContainer } from './header/HeaderContainer';
-import { Preloader } from './repeating/preloader/Preloader';
+import { Modal } from './repeating/modalWindows/Modal';
+import { Loader } from './repeating/preloader/Loader';
 
 
 function App({ isResponse }) {
@@ -16,7 +16,9 @@ function App({ isResponse }) {
         {
           isResponse ?
             <div className="container"> <Pages /> </div> :
-            <Preloader />
+            <Modal>
+              <Loader size="20vmin" />
+            </Modal>
         }
       </BrowserRouter>
 

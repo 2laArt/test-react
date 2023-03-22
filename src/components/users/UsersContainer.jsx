@@ -12,7 +12,7 @@ import { Users } from "./Users";
 
 class UsersFromAPI extends React.Component {
   componentDidMount() {
-    this.props.setCurrentPage(+this.props.userPageId);
+    this.props.setCurrentPage(+this.props.userPageId || 1);
   }
   changeFollow = (id) => {
     this.props.changeFollow(this.props.users, id);
@@ -44,7 +44,7 @@ const CurrentPageToPath = (props) => {
   useEffect(() => {
     if (+params.page === +userPageId) return;
     navigate(`/users/${userPageId}`);
-  });
+  }, [userPageId, params.page, navigate]);
   return (
     <UsersFromAPI
       {...props}

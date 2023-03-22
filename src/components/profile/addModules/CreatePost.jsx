@@ -27,7 +27,7 @@ const PostReduxForm = reduxForm({ form: "userPost" })(PostForm);
 export const CreatePost = ({ sendPost }) => {
   const f = (v) => sendPost(v.newPostValue);
   return (
-    <section className="create_ports profile_section">
+    <section className="create_ports profile_section ">
       <h4>Create Post</h4>
       <PostReduxForm onSubmit={f} />
     </section>
