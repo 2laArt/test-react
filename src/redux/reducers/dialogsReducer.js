@@ -1,120 +1,77 @@
-import { addById } from "../../utilities/mapping/mapping";
+import { requests } from "../../api/requestAPI";
+// import { addById } from "../../utilities/mapping/mapping";
 
-const SHOW_DIALOG = 'SHOW-DIALOG';
-const SEND_MESSAGE = 'SEND-MESSAGE';
+const SET_MESSAGES = 'SET-MESSAGES';
+const SET_DIALOGS = 'SET-DIALOGS';
+const IS_REFRESH = 'IS-REFRESH';
 
 const defaultState = {
-	messages: [
-		[
-			{
-				id: 1,
-				text: "Hello."
-			},
-			{
-				id: 2,
-				text: "How do you doing."
-			},
-			{
-				id: 1,
-				text: "Do you want to go with me."
-			},
-			{
-				id: 1,
-				text: "I am sure of it."
-			},
-		],
-		[
-			{
-				id: 3,
-				text: "Hi"
-			},
-			{
-				id: 3,
-				text: "Nice to meet you."
-			},
-			{
-				id: 1,
-				text: "Hello."
-			},
-			{
-				id: 3,
-				text: "You need to learn English more intensively."
-			},
-			{
-				id: 3,
-				text: "Bay"
-			},
-		],
-		[
-			{
-				id: 1,
-				text: "Eee."
-			}, {
-				id: 4,
-				text: "What is sup man."
-			}, {
-				id: 1,
-				text: "Let's go !!!!!!."
-			}, {
-				id: 4,
-				text: "yes"
-			},
-		],
-	],
-	dialogs: [
-		{
-			id: 1,
-			img: "https://avatars.mds.yandex.net/i?id=8c488830373f58f85a17abf9e2677c70-4231037-images-thumbs&n=13",
-			name: "Anna Goodman",
-		},
-		{
-			id: 2,
-			img: "https://avatars.mds.yandex.net/i?id=956b7362cef902d3517011d83622a08a_sr-6356719-images-thumbs&n=13",
-			name: "Ivan Ivanov",
-		},
-		{
-			id: 3,
-			img: "https://avatars.mds.yandex.net/i?id=959634e827f25855c980de6b855b5022_sr-3480301-images-thumbs&n=13",
-			name: "Lisa Pop",
-		},
-	],
-	getSelectedDialog() {
-		return this.messages[this.selectedDialogIndex] || [];
-	},
-	selectedDialogIndex: undefined,
+	dialogs: [],
+	messages: [],
+	isRefresh: true,
 }
 
-const showDialog = (state, param) => {
-	return { ...state, selectedDialogIndex: --param };
-}
 
-const sendMessage = (state, param) => {
+export const sendMessage = param => async dispatch => {
+	const data = { id: param.id, msg: { body: param.text } }
+	const result = await requests.sendMessage(data);
+	console.log(result)
+	getUserDialog(param.id)(dispatch)
+}
+const setDialogs = (state, param) => {
 	return {
 		...state,
-		messages: addById(
-			state.messages,
-			state.selectedDialogIndex,
-			{ id: 1, text: param }
-		)
+		dialogs: param
 	}
+}
+const setRefresh = (state, param) => ({ ...state, isRefresh: param })
+const setMessages = (state, param) => ({ ...state, messages: param })
+
+const setRefreshActionCreator = (param) => ({
+	type: IS_REFRESH,
+	param
+})
+const setDialogsActionCreator = (param) => ({
+	type: SET_DIALOGS,
+	param
+})
+export const setMsgActionCreator = (param) => ({
+	type: SET_MESSAGES,
+	param
+})
+
+
+export const getDialogs = () => async dispatch => {
+	const dialogs = await requests.getAllDialogs();
+	dispatch(setDialogsActionCreator(dialogs))
+	dispatch(setRefreshActionCreator(false))
+	console.log(dialogs)
+}
+export const getUserDialog = (id) => async dispatch => {
+	const result = await requests.getUserDialog(id)
+	dispatch(setMsgActionCreator(result.items))
+}
+export const startDialog = (id) => async dispatch => {
+	if (!id) return;
+	const result = await requests.startDialog(id);
+	dispatch(setRefreshActionCreator(true))
+	console.log(result)
+	return result.resultCode
 }
 
 export const dialogsReducer = (state = defaultState, action) => {
 	switch (action.type) {
-		case SHOW_DIALOG:
-			return showDialog(state, action.param);
-		case SEND_MESSAGE:
-			return sendMessage(state, action.param);
+		case SET_DIALOGS:
+			return setDialogs(state, action.param);
+		case IS_REFRESH:
+			return setRefresh(state, action.param);
+		case SET_MESSAGES:
+			return setMessages(state, action.param);
+
+
 		default:
 			return state;
 	}
 }
 
-export const showDialogActionCreator = (param) => ({
-	type: SHOW_DIALOG,
-	param
-})
-export const sendMessageActionCreator = (param) => ({
-	type: SEND_MESSAGE,
-	param
-})
+

@@ -1,11 +1,11 @@
 import { Message } from "./Message";
 
-export const Messages = ({ selectedDialog, children }) => {
+export const Messages = ({ messages, myId, children }) => {
   return (
     <div className="messages ">
       <div>
-        {selectedDialog.map((el, i) => (
-          <Message message={el} key={i} />
+        {messages.map((el, i) => (
+          <Message message={el} myId={myId} key={i} />
         ))}
       </div>
       {children}

@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+import { PATHS } from "../../../router/paths";
 import { MessageIcon } from "../../icons/MessageIcon";
 
 export const UserCardAddInfo = ({
@@ -6,14 +8,14 @@ export const UserCardAddInfo = ({
   isAuth,
   disabled,
   addFriend,
-  writeMsg,
+  startDialog,
   userId,
   activeId,
 }) => {
   const isActive = activeId === userId;
   const onWriteMsg = (e) => {
     e.stopPropagation();
-    writeMsg(userId);
+    startDialog(userId);
   };
   return (
     <div className={isActive ? "user_add_info" : "user_add_info heightZero"}>
@@ -24,9 +26,13 @@ export const UserCardAddInfo = ({
             {followed ? "Unfollow" : "Follow"}
           </button>
         )}
-        <button className="user_card_btn" onClick={onWriteMsg}>
+        <NavLink
+          to={`${PATHS.DIALOGS}/${userId}`}
+          className="user_card_btn"
+          onClick={onWriteMsg}
+        >
           <MessageIcon />
-        </button>
+        </NavLink>
       </div>
     </div>
   );

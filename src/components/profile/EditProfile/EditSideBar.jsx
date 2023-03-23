@@ -8,7 +8,9 @@ export const EditSideBar = ({ curPage, pages }) => {
         {pages.map((item) => (
           <NavLink
             to={`${PATHS.ACCOUNT_SETTING}/${item}`}
-            className={(c) => (c.isActive ? "active" : "")}
+            className={(c) =>
+              c.isActive ? "active side_bar_button" : "side_bar_button"
+            }
             key={item}
           >
             {item.toUpperCase()}

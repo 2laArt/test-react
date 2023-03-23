@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
+import { startDialog } from "../../redux/reducers/dialogsReducer";
+import { PATHS } from "../../router/paths";
 import {
   getUsers,
   changeFollow,
@@ -28,6 +30,7 @@ class UsersFromAPI extends React.Component {
         inProgress={this.props.inProgress}
         isAuth={this.props.isAuth}
         getUsers={this.props.getUsers}
+        startDialog={this.props.startDialog}
       />
     );
   }
@@ -43,7 +46,7 @@ const CurrentPageToPath = (props) => {
   };
   useEffect(() => {
     if (+params.page === +userPageId) return;
-    navigate(`/users/${userPageId}`);
+    navigate(`${PATHS.USERS}/${userPageId}`);
   }, [userPageId, params.page, navigate]);
   return (
     <UsersFromAPI
@@ -66,6 +69,7 @@ const mapDispatchToProps = {
   getUsers,
   changeFollow,
   setCurrentPage: setCurrentPageActionCreator,
+  startDialog: startDialog,
 };
 
 export const UsersContainer = connect(

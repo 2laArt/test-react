@@ -35,6 +35,7 @@ export const Users = (props) => {
             inProgress={props.inProgress}
             user={user}
             changeFollow={props.changeFollow}
+            startDialog={props.startDialog}
             key={user.id}
           />
         ))}

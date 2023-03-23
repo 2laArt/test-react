@@ -10,6 +10,7 @@ export const UserCard = ({
   isAuth,
   activeId,
   setActiveId,
+  startDialog,
 }) => {
   const navigate = useNavigate();
   const addFriend = (e) => {
@@ -17,7 +18,6 @@ export const UserCard = ({
     // e.preventDefault();
     changeFollow(user.id);
   };
-  const writeMsg = (id) => console.log(id);
   const disabled = () => inProgress.some((id) => id === user.id);
   const redirectToProfile = () => {
     navigate(`/profile/${user.id}`);
@@ -48,7 +48,7 @@ export const UserCard = ({
             isAuth={isAuth}
             disabled={disabled}
             addFriend={addFriend}
-            writeMsg={writeMsg}
+            startDialog={startDialog}
             userId={user.id}
           />
 
